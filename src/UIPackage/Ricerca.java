@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Listener.ViewListener;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JScrollBar;
@@ -22,9 +25,9 @@ import javax.swing.JTextPane;
 
 public class Ricerca extends JFrame {
 
-	private JPanel contentPane;
-	private JTextField textField;
-
+	public JPanel contentPane;
+	public JTextField textField;
+	public JComboBox comboBox;
 	/**
 	 * Launch the application.
 	 */
@@ -45,6 +48,7 @@ public class Ricerca extends JFrame {
 	 * Create the frame.
 	 */
 	public Ricerca() {
+		Ricerca Gui = this;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -57,12 +61,14 @@ public class Ricerca extends JFrame {
 		JButton btnSearch = new JButton("Search");
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				ViewListener a= ViewListener.getInstance();
+				String nomeopera=textField.getText();
+				a.search(nomeopera, Gui);	
 			}
 		});
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.addItem("ciao");
+		comboBox = new JComboBox();
+		
 		
 		JButton btnConsulta = new JButton("Consulta");
 		btnConsulta.addActionListener(new ActionListener() {

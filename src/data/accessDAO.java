@@ -26,12 +26,12 @@ public class accessDAO implements DAO {
 		    stmt = conn.createStatement();
 		   
 		    
-		    if (stmt.execute("SELECT username FROM utenti WHERE username='" + username + "' OR email='" + email + "'")){
+		    if (stmt.execute("SELECT * FROM utenti WHERE username='" + username + "'or email='" + email + "'")){
 		        rs = stmt.getResultSet(); 
+		        rs.last();
 		        a=rs.getRow();
-		        while(rs.next()){
-		        	System.out.println(rs.getString("email"));
-		        }
+		        
+		       
 		    }  
 		}
 		catch (SQLException ex){
@@ -42,6 +42,7 @@ public class accessDAO implements DAO {
 		}
 		
 		if(a==0){
+			
 			try {
 			    stmt = conn.createStatement();
 			   
@@ -65,7 +66,9 @@ public class accessDAO implements DAO {
 		
 	}
 	
-	/*******************************************************************************************************/
+	/**
+	 * 
+	 */
 	public String access(String username){
 		String pwd = null;
 		Connection conn = null;
@@ -107,5 +110,6 @@ public class accessDAO implements DAO {
 		return pwd;	
 		
 	}
+
 	
 }

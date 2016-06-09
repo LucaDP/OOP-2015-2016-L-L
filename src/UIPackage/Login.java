@@ -1,6 +1,11 @@
+/**
+ * UIPackage
+ */
 package UIPackage;
 
+
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -21,18 +26,20 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JOptionPane;
 
+/**
+ * 
+ * @author Luca
+ *
+ */
 public class Login extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	public JTextField textField;
+	public JTextField textField_1;
+	public JTextField textField_2;
 	private JPasswordField passwordField;
-	private JPasswordField passwordField_1;
-	String username="ciao";
-	String password="ciao";
-	String permesso="a";
-	final String def="z";
+	public JPasswordField passwordField_1;
+	
 
 	/**
 	 * Launch the application.
@@ -54,6 +61,7 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
+		Login Gui = this;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 382);
 		contentPane = new JPanel();
@@ -68,8 +76,8 @@ public class Login extends JFrame {
 			public void actionPerformed(ActionEvent arg0){
 				
 				ViewListener a= ViewListener.getInstance();
-				a.login(textField.getText(), passwordField.getText());
-				dispose();
+				a.login(textField.getText(), passwordField.getText(), Gui);
+			
 				
 			}
 		});
@@ -81,8 +89,8 @@ public class Login extends JFrame {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ViewListener a= ViewListener.getInstance();
-				a.signin(textField_1.getText(), passwordField_1.getText(), textField_2.getText());
-				dispose();
+				a.signin(textField_1.getText(), passwordField_1.getText(), textField_2.getText(), Gui);
+				
 				
 				
 				
@@ -99,9 +107,10 @@ public class Login extends JFrame {
 		JButton btnNewButton_2 = new JButton("Accesso Libero");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Ricerca Frame= new Ricerca();
-				Frame.setVisible(true);
-				dispose();
+				ViewListener a= ViewListener.getInstance();
+				a.freeAccess(Gui);
+				
+				
 			}
 		});
 		
