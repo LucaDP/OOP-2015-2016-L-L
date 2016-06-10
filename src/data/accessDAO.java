@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.JOptionPane;
+
 public class accessDAO implements authDAO {
 	
 	/**************************************************************************************/
@@ -96,6 +98,58 @@ public class accessDAO implements authDAO {
 		
 	}
 	/**********************************************************************************************/
+	public Boolean creareoperatore(String nomeoperatore, String password, String email, String ruolo) throws Exception{
+		Connection conn = dbConnect.connect();
+		Statement stmt;
+		 
+		try {
+		    stmt = conn.createStatement();
+		    if (stmt.execute("INSERT INTO utenti (username, password, email, gruppo) VALUES ('"+nomeoperatore+"','"+password+"','"+email+"','"+ruolo+"')")){
+		    	/****NON LO FA IL DAO***/
+		    	JOptionPane.showMessageDialog (null, "operatore  inserito");
+		    	return true;
+		    }
+		}
+		catch (SQLException ex){
+		    // handle any errors
+		    System.out.println("SQLException: " + ex.getMessage());
+		    System.out.println("SQLState: " + ex.getSQLState());
+		    System.out.println("VendorError: " + ex.getErrorCode());
+		}
+		return false;
+	} 
+	/**********************************************************************************************/
+	public Boolean promutenza(String usernameutente,String permesso) throws Exception{
+		Connection conn = dbConnect.connect();
+		Statement stmt;
+		 
+		try {
+		    stmt = conn.createStatement();
+		    
+		     System.out.println(usernameutente);
+		     System.out.println(permesso);
+            	
+		     if (stmt.execute("UPDATE utenti"
+        				+ " SET gruppo = '"+permesso+ 
+        				 "' WHERE username = '"+usernameutente+"'")){
+		    	 
+		    	 /***NON LO FA IL DAO***/
+    		    	JOptionPane.showMessageDialog (null, "operatore  inserito");
+    		    	return true;
+    		    }
+            
+		
+		}
+		catch (SQLException ex){
+		    // handle any errors
+		    System.out.println("SQLException: " + ex.getMessage());
+		    System.out.println("SQLState: " + ex.getSQLState());
+		    System.out.println("VendorError: " + ex.getErrorCode());
+		}
+		return false;
 
+
+
+}
 	
 }
