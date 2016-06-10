@@ -171,5 +171,41 @@ public class accessManager {
 		}
 		
 	}
+	
+	/***************************************************************************************************/
+	public void createoperatore(BackOffice finestra) throws Exception{
+		String nomeoperatore= finestra.operatorname.getText();
+		String password= finestra.passwordoperatore.getText();
+		
+	    String email=finestra.textField_6.getText();
+	    String ruolo= (String) finestra.ruolo.getSelectedItem();
+		
+		if(nomeoperatore==null ){
+			JOptionPane.showMessageDialog (null, "Inserisci il nome di un operatore");
+		}
+		else{
+			 accessDAO c= new accessDAO();
+		     c.creareoperatore(nomeoperatore,password,email,ruolo);
+		     JOptionPane.showMessageDialog (null, "NUOVO OPERATORE NEL BIBLIOMANAGER");
+	
+	}
+	}
+
+	/**********************************************************************************************/
+	public void promoutenza(BackOffice finestra) throws Exception{
+		String usernameutente= finestra.usernamepromuovere.getText();
+		
+	    String permesso= (String) finestra.comboBox.getSelectedItem();
+		
+		if(usernameutente==null ){
+			JOptionPane.showMessageDialog (null, "Inserisci il nome di un operatore");
+		}
+		else{
+			 accessDAO c= new accessDAO();
+		     c.promutenza(usernameutente,permesso);
+		     JOptionPane.showMessageDialog (null, "UTENTE PROMOSSO");
+	
+	}
+	}
 
 }
