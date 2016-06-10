@@ -1,14 +1,25 @@
 package data;
 
 public class OperaGen {
-	public String autore;
-	public String nomeOpera;
-	public String epoca;
+	private String autore;
+	private String nomeOpera;
+	private String epoca;
+	private Boolean pubblicata;
 	
-	public OperaGen(String autore, String nomeOpera, String epoca){
-		autore= this.autore;
-		nomeOpera=this.autore;
-		epoca=this.epoca;	
+	public OperaGen(String autore, String nomeOpera, String epoca, Boolean pubblicata) {
+		super();
+		this.autore = autore;
+		this.nomeOpera = nomeOpera;
+		this.epoca = epoca;
+		this.pubblicata = pubblicata;
+	}
+
+	public Boolean getPubblicata() {
+		return pubblicata;
+	}
+
+	public void setPubblicata(Boolean pubblicata) {
+		this.pubblicata = pubblicata;
 	}
 
 	public String getAutore() {
@@ -34,8 +45,9 @@ public class OperaGen {
 	public void setEpoca(String epoca) {
 		this.epoca = epoca;
 	}
+	
 	public String toString(){
-		return this.autore + this.epoca + this.nomeOpera + "ciaoneee";
+		return this.autore + this.epoca + this.nomeOpera;
 		
 	}
 

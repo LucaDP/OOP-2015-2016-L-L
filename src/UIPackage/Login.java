@@ -37,25 +37,11 @@ public class Login extends JFrame {
 	public JTextField textField;
 	public JTextField textField_1;
 	public JTextField textField_2;
-	private JPasswordField passwordField;
+	public JPasswordField passwordField;
 	public JPasswordField passwordField_1;
 	
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Login frame = new Login();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 	/**
 	 * Create the frame.
@@ -76,7 +62,12 @@ public class Login extends JFrame {
 			public void actionPerformed(ActionEvent arg0){
 				
 				ViewListener a= ViewListener.getInstance();
-				a.login(textField.getText(), passwordField.getText(), Gui);
+				try {
+					a.login( Gui);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			
 				
 			}
@@ -85,11 +76,16 @@ public class Login extends JFrame {
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
 		
-		JButton btnNewButton_1 = new JButton("Sigin");
+		JButton btnNewButton_1 = new JButton("Signin");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ViewListener a= ViewListener.getInstance();
-				a.signin(textField_1.getText(), passwordField_1.getText(), textField_2.getText(), Gui);
+				try {
+					a.signin(Gui);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				
 				
 				

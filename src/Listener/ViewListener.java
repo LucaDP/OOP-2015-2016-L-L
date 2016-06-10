@@ -5,7 +5,7 @@ package Listener;
 
 import UIPackage.Login;
 import UIPackage.Ricerca;
-import engine.Manager;
+import engine.accessManager;
 import engine.TitleManager;
 
 /**
@@ -38,16 +38,13 @@ public class ViewListener {
 	 * @param password
 	 * @param finestra
 	 * @return void
+	 * @throws Exception 
 	 */
-	public void login(String username, String password, Login finestra ){
-		if(username.length()==0 || password.length()==0){
-			Manager a=Manager.getInstance();
-			a.alert(1);
-		}
-		else{
-			Manager a=Manager.getInstance();
-			a.loginManager(username , password, finestra);
-		}
+	public void login(Login finestra ) throws Exception{
+		
+		accessManager a=accessManager.getInstance();
+		a.loginManager(finestra);
+		
 	}
 	
 	/**
@@ -57,29 +54,41 @@ public class ViewListener {
 	 * @param email
 	 * @param finestra
 	 * @return void
+	 * @throws Exception 
 	 */
-	public void signin(String username, String password, String email, Login finestra){
-		if(username.length()==0 || password.length()==0 || email.length()==0){
-			Manager a=Manager.getInstance();
-			a.alert(1);
-		}
-		else{
-			Manager a=Manager.getInstance();
-			a.signinManager(username , password, email, finestra);
-			
-		}
+	public void signin(Login finestra) throws Exception{
+		accessManager a=accessManager.getInstance();
+		a.signinManager(finestra);
 		
 	}
-	
+	/**
+	 * Metodo di accesso libero al sistema
+	 * @param finestra
+	 * @return void
+	 */
 	public void freeAccess(Login finestra){
-		Manager a=Manager.getInstance();
+		accessManager a=accessManager.getInstance();
 		a.freeLogin(finestra);
 		
 	}
-	
-	public void search(String o, Ricerca finestra){
+	/**
+	 * Metodo per indicare al controller di ricercare un titolo
+	 * @param ricerca
+	 * @param finestra
+	 * @return void
+	 * @throws Exception 
+	 */
+	 
+	public void search(Ricerca finestra) throws Exception{
 		TitleManager a= TitleManager.getInstance();
-		a.searchOpera(o, finestra);
+		a.searchOpera(finestra);
 	}
+	
+	public void view(Ricerca finestra, String username, String permesso) throws Exception{
+		TitleManager a= TitleManager.getInstance();
+		a.viewOpera(finestra, permesso);
+		
+	}
+	
 
 }

@@ -8,7 +8,7 @@ import java.sql.Connection;
 
 public class dbConnect {
 	
-	protected static String url = "jdbc:mysql://127.0.0.1:3306/digitallibrary?useSSL=false";
+	protected static String url = "jdbc:mysql://127.0.0.1:3306/digitallibrary1?useSSL=false";
 	protected static String user = "root";
 	protected static String psw = "";
 	

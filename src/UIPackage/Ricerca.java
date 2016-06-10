@@ -22,12 +22,18 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
+import javax.swing.JCheckBox;
 
 public class Ricerca extends JFrame {
 
 	public JPanel contentPane;
 	public JTextField textField;
 	public JComboBox comboBox;
+	public JButton btnAdmin;
+	public JButton btnConsulta;
+	public JLabel hellouser;
+	public JCheckBox operenonpubb;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -35,7 +41,7 @@ public class Ricerca extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Ricerca frame = new Ricerca();
+					Ricerca frame = new Ricerca(null, null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -47,7 +53,8 @@ public class Ricerca extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Ricerca() {
+	public Ricerca(String username, String permesso) {
+		super("Ricerca");
 		Ricerca Gui = this;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -62,42 +69,52 @@ public class Ricerca extends JFrame {
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ViewListener a= ViewListener.getInstance();
-				String nomeopera=textField.getText();
-				a.search(nomeopera, Gui);	
+				try {
+					a.search(Gui);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}	
 			}
 		});
 		
 		comboBox = new JComboBox();
 		
 		
-		JButton btnConsulta = new JButton("Consulta");
+		
+		btnConsulta = new JButton("Consulta");
 		btnConsulta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*
-				 * String c= (String)comboBox.getSelectedItem();
-				if(!(a.equals("a"))){
-					JOptionPane.showMessageDialog (null, "Non hai i permessi necessari", "Title", JOptionPane.INFORMATION_MESSAGE);
+			
+				ViewListener a= ViewListener.getInstance();
+				try {
+					a.view(Gui, username, permesso);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
-				else if(c==null){
-					JOptionPane.showMessageDialog (null, "Non ci sono elementi da consultare", "Title", JOptionPane.INFORMATION_MESSAGE);
-				}
-				else{
-					Opera Frame= new Opera(a);
-					Frame.setVisible(true);
-					dispose();
-				}
-				*/
 				
 			}
 		});
 		
-		JButton btnEdit = new JButton("Edit");
+		
+		btnAdmin = new JButton("Amministrazione");
+		btnAdmin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+			}
+		});
 		
 		JLabel lblCercaTitolo = new JLabel("Cerca titolo");
 		
 		JLabel lblRisultati = new JLabel("Risultati");
 		
-		JTextPane textPane = new JTextPane();
+		hellouser = new JLabel("Salve Utente");
+		
+	operenonpubb = new JCheckBox("Cerca opere da completare");
+		
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -105,47 +122,55 @@ public class Ricerca extends JFrame {
 					.addGap(27)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(lblRisultati)
+							.addComponent(operenonpubb)
 							.addContainerGap())
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 							.addGroup(gl_contentPane.createSequentialGroup()
-								.addComponent(lblCercaTitolo)
+								.addComponent(lblRisultati)
 								.addContainerGap())
-							.addGroup(gl_contentPane.createSequentialGroup()
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-									.addGroup(gl_contentPane.createSequentialGroup()
-										.addComponent(btnEdit)
-										.addPreferredGap(ComponentPlacement.RELATED, 233, Short.MAX_VALUE)
-										.addComponent(btnConsulta))
-									.addGroup(gl_contentPane.createSequentialGroup()
-										.addComponent(textField, GroupLayout.PREFERRED_SIZE, 253, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-										.addComponent(btnSearch))
-									.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-										.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 178, GroupLayout.PREFERRED_SIZE)
-										.addGap(61)
-										.addComponent(textPane, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)))
-								.addGap(38)))))
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(hellouser)
+									.addContainerGap())
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(lblCercaTitolo)
+									.addContainerGap())
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+										.addGroup(gl_contentPane.createSequentialGroup()
+											.addComponent(btnAdmin)
+											.addPreferredGap(ComponentPlacement.RELATED, 175, Short.MAX_VALUE)
+											.addComponent(btnConsulta))
+										.addGroup(gl_contentPane.createSequentialGroup()
+											.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+												.addComponent(comboBox, Alignment.LEADING, 0, 359, Short.MAX_VALUE)
+												.addGroup(gl_contentPane.createSequentialGroup()
+													.addComponent(textField, GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+													.addGap(18)
+													.addComponent(btnSearch)))
+											.addPreferredGap(ComponentPlacement.RELATED)))
+									.addGap(38))))))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
+					.addComponent(hellouser)
+					.addGap(13)
 					.addComponent(lblCercaTitolo)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnSearch))
-					.addGap(8)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(operenonpubb)
+					.addGap(11)
 					.addComponent(lblRisultati)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(comboBox, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textPane, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+					.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnConsulta)
-						.addComponent(btnEdit))
+						.addComponent(btnAdmin))
 					.addContainerGap())
 		);
 		contentPane.setLayout(gl_contentPane);

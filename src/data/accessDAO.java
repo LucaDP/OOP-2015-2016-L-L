@@ -1,37 +1,29 @@
 package data;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class accessDAO implements DAO {
+public class accessDAO implements authDAO {
 	
-	public Boolean registration(String username, String password, String email){
-		Connection conn = null;
+	/**************************************************************************************/
+	public Boolean check(String username, String email) throws Exception{
+		Connection conn = dbConnect.connect();
 		Statement stmt;
 		ResultSet rs;
-		int a=1;
-		try {
-		    conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ppo?useSSL=false","root","");
-		    
-		} catch (SQLException ex) {
-		    // handle any errors
-		    System.out.println("SQLException: " + ex.getMessage());
-		    System.out.println("SQLState: " + ex.getSQLState());
-		    System.out.println("VendorError: " + ex.getErrorCode());
-		}
+		
+		Boolean a=true;
+		
 		try {
 		    stmt = conn.createStatement();
 		   
 		    
 		    if (stmt.execute("SELECT * FROM utenti WHERE username='" + username + "'or email='" + email + "'")){
 		        rs = stmt.getResultSet(); 
-		        rs.last();
-		        a=rs.getRow();
-		        
-		       
+		        /* rs.last();
+		        a=rs.getRow();*/
+		    	a= rs.isBeforeFirst();   
 		    }  
 		}
 		catch (SQLException ex){
@@ -39,63 +31,56 @@ public class accessDAO implements DAO {
 		    System.out.println("SQLException: " + ex.getMessage());
 		    System.out.println("SQLState: " + ex.getSQLState());
 		    System.out.println("VendorError: " + ex.getErrorCode());
+		   
 		}
-		
-		if(a==0){
-			
-			try {
-			    stmt = conn.createStatement();
-			   
-			    
-			    if (stmt.execute("INSERT INTO utenti (username, password, email) VALUES ('"+username+"','"+password+"','"+email+"')"));
-			}
-			catch (SQLException ex){
-			    // handle any errors
-			    System.out.println("SQLException: " + ex.getMessage());
-			    System.out.println("SQLState: " + ex.getSQLState());
-			    System.out.println("VendorError: " + ex.getErrorCode());
-			}
-			
-			return true;
-			
-			
-		}
-		else{
-			return false;
-		}
-		
+		 return a;
 	}
+	/***********************************************************************************/
 	
-	/**
-	 * 
-	 */
-	public String access(String username){
-		String pwd = null;
-		Connection conn = null;
+	public Boolean signin(String username, String password, String email) throws Exception{
+		Connection conn = dbConnect.connect();
 		Statement stmt;
-		ResultSet rs;
 		try {
-		    conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ppo?useSSL=false","root","");
-		    
-		} catch (SQLException ex) {
+		    stmt = conn.createStatement();
+		    if (stmt.execute("INSERT INTO utenti (username, password, email, gruppo) VALUES ('"+username+"','"+password+"','"+email+"','ua')")){
+		    	return true;
+		    }
+		}
+		catch (SQLException ex){
 		    // handle any errors
 		    System.out.println("SQLException: " + ex.getMessage());
 		    System.out.println("SQLState: " + ex.getSQLState());
 		    System.out.println("VendorError: " + ex.getErrorCode());
 		}
+		return false;
+	}
+	/****************************************************************************************/		
+	
+	
+	/**
+	 * @throws Exception 
+	 * 
+	 */
+	public Utente access(String username) throws Exception{
+		Utente user= new Utente(null,null,null,null);
+		Connection conn = dbConnect.connect();
+		Statement stmt;
+		ResultSet rs;
+		
 		try {
 		    stmt = conn.createStatement();
 		   
 		    
-		    if (stmt.execute("SELECT password FROM utenti WHERE username='"+username+"'")){
+		    if (stmt.execute("SELECT * FROM utenti WHERE username='"+username+"'")){
 		        rs = stmt.getResultSet();
 		        
 		    
 		        while (rs.next()) {
-		        	
-		        	pwd = rs.getString("password");
-		        
-		        	
+		        	 user.setUsername(rs.getString("username"));
+		        	 user.setEmail(rs.getString("email"));
+		        	 user.setPassword(rs.getString("password"));
+		        	 user.setPermessi(rs.getString("gruppo"));
+
 	        	 }
 		    }  
 		}
@@ -107,9 +92,10 @@ public class accessDAO implements DAO {
 		}
 		
 		
-		return pwd;	
+		return user;	
 		
 	}
+	/**********************************************************************************************/
 
 	
 }
