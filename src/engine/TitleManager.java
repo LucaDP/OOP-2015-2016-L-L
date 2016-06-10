@@ -73,7 +73,7 @@ public class TitleManager {
 		else{
 			pagesDAO b= new pageDAO();
 			a=b.selectPages(nomeopera);
-			int i=2;
+			
 			Opera Frame= new Opera(a);
 			Frame.setVisible(true);
 			switch(permesso){
@@ -86,8 +86,8 @@ public class TitleManager {
 									System.out.println(a.getPagine().get(k));
 								}  
 				System.out.println(a.getPagTot());
-								Frame.img.setIcon(new ImageIcon(a.getPagine().get(i).getScan().getPagina().getScaledInstance(475, 565, java.awt.Image.SCALE_SMOOTH)));
-								Frame.currpage.setText(Integer.toString(a.getPagine().get(i).getNumpag()));
+								Frame.img.setIcon(new ImageIcon(a.getPagine().get(0).getScan().getPagina().getScaledInstance(475, 565, java.awt.Image.SCALE_SMOOTH)));
+								Frame.currpage.setText(Integer.toString(a.getPagine().get(0).getNumpag()));
 								
 								Frame.ConfermaImg.setEnabled(false);
 								Frame.ConfermaTei.setEnabled(false);
@@ -152,6 +152,52 @@ public class TitleManager {
 		}
 		
 		
+	}
+	
+	/**********************************************************************************************/
+	public void pubbopera(BackOffice finestra) throws Exception{
+		String nomeoperadapubb= (String) finestra.comboBox_2.getSelectedItem();
+		
+		
+		
+		if(nomeoperadapubb==null ){
+			JOptionPane.showMessageDialog (null, "Il campo opera è vuoto");
+		}
+		else{
+			 operaDAO b= new operaDAO();
+		     //b.creareopera(titoloopera,autore,epoca);
+		     b.pubbopera(nomeoperadapubb);
+		     JOptionPane.showMessageDialog (null, "OPERA PUBBLICATA");
+	}
+}
+/**********************************************************************************************/
+	/*******************DA SISTEMARE**************/
+	public void searchOperaBO(BackOffice finestra) throws Exception{
+		String ricerca=finestra.textField_5.getText();
+		
+		if(finestra.comboBox_2.getItemCount()!=0){
+			finestra.comboBox_2.removeAllItems();
+		}
+		
+		if("".equals(ricerca)){
+			JOptionPane.showMessageDialog (null, "inserisci qualcosa prima di fare la ricerca");	
+		}
+		else{
+			
+			titleDAO<OperaGen> b= new operaDAO();
+			ArrayList<OperaGen> listaopere= new ArrayList<OperaGen>();
+			listaopere.addAll(b.selectOpera(ricerca,false));
+			if(listaopere.size()==0){
+				JOptionPane.showMessageDialog (null, "la ricerca non ha prodotto alcun risultato");
+			}
+			else{
+				for (OperaGen object: listaopere) {
+					finestra.comboBox_2.addItem(object.getNomeOpera());
+				}
+			}
+			
+			
+		}
 	}
 	
 	
