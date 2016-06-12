@@ -8,6 +8,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
+import UIPackage.BackOffice;
 import UIPackage.Opera;
 import UIPackage.Ricerca;
 
@@ -75,7 +76,10 @@ public class TitleManager {
 			a=b.selectPages(nomeopera);
 			
 			Opera Frame= new Opera(a);
+			
 			Frame.setVisible(true);
+			
+			TitleManager.showOperaPage(a, Frame, 0);
 			switch(permesso){
 				case "ad":		
 								break;
@@ -85,10 +89,9 @@ public class TitleManager {
 				case "ua":		for(int k = 0; k < a.getPagine().size(); k++) {   
 									System.out.println(a.getPagine().get(k));
 								}  
-				System.out.println(a.getPagTot());
-								Frame.img.setIcon(new ImageIcon(a.getPagine().get(0).getScan().getPagina().getScaledInstance(475, 565, java.awt.Image.SCALE_SMOOTH)));
-								Frame.currpage.setText(Integer.toString(a.getPagine().get(0).getNumpag()));
-								
+								System.out.println(a.getPagTot());
+								//Frame.tei.setEditable(false);
+								//Frame.tei.setContentType("text/html");/***NON VA***/
 								Frame.ConfermaImg.setEnabled(false);
 								Frame.ConfermaTei.setEnabled(false);
 								Frame.EditTei.setEnabled(false);
@@ -197,6 +200,61 @@ public class TitleManager {
 			}
 			
 			
+		}
+	}
+	
+	public void viewAdmin(Ricerca finestra, String username, String permesso) throws Exception{
+		BackOffice frame = new BackOffice();
+		frame.setVisible(true);
+	}
+/**********************************************************************************************/
+	public void createopera(BackOffice finestra) throws Exception{
+		String titoloopera= finestra.textField_2.getText();
+		String autore= finestra.textField_3.getText();
+		String epoca= finestra.textField_4.getText();
+	    
+		
+		
+		if(titoloopera==null ){
+			
+			JOptionPane.showMessageDialog (null, "Inserisci il nome di un opera");
+		}
+		else{
+			 operaDAO b= new operaDAO();
+		     b.creareopera(titoloopera,autore,epoca);
+		     JOptionPane.showMessageDialog (null, "TITOLO OPERA INSERITO NEL DATABASE");
+	
+		}
+	}
+	
+	/**PASSARE OPERA COMP? MEGLIO OPERAGEN NO? A e B sottoclasse di A, con instance of su B faccio in modo di non applicare i metodi (get tot page etc etc che OperaGen non ha) su Oggetti di tipo A**/
+	public static void showPrev(OperaComp a, Opera Frame){
+		int i=Integer.parseInt(Frame.currpage.getText());
+		TitleManager.showOperaPage(a, Frame, i-2);
+	}
+	
+	public static void showNext(OperaComp a, Opera Frame){
+		int i=Integer.parseInt(Frame.currpage.getText());
+		TitleManager.showOperaPage(a, Frame, i);
+	}
+	
+	public static void showOperaPage(OperaComp a,Opera Frame, int i){
+		Frame.prev.setEnabled(true);
+		Frame.next.setEnabled(true);
+		
+		Frame.img.setIcon(new ImageIcon(a.getPagine().get(i).getScan().getPagina().getScaledInstance(475, 565, java.awt.Image.SCALE_SMOOTH)));
+		Frame.currpage.setText(Integer.toString(a.getPagine().get(i).getNumpag()));
+		Frame.tei.setText(a.getPagine().get(i).getTEI().getTesto());
+		int totalpages=a.getPagTot();
+		Frame.totpage.setText(Integer.toString(totalpages));
+		if(i==totalpages-1){
+			Frame.next.setEnabled(false);
+		}
+		if(totalpages==1){
+			Frame.next.setEnabled(false);
+		}
+		if(i==0){
+			Frame.prev.setEnabled(false);
 		}
 	}
 	
