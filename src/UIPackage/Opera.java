@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Listener.ViewListener;
 import data.OperaComp;
 
 import javax.swing.GroupLayout;
@@ -20,7 +21,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class Opera extends JFrame {
-
+	
 	private JPanel contentPane;
 	public JTextPane tei;
 	public JLabel currpage;
@@ -59,6 +60,7 @@ public class Opera extends JFrame {
 	 */
 	public Opera(OperaComp a) {
 		super("Opera");
+		Opera Gui=this;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1050, 650);
 		contentPane = new JPanel();
@@ -79,10 +81,19 @@ public class Opera extends JFrame {
 		UploadImg = new JButton("Upload Img");
 		
 		prev = new JButton("<");
+		prev.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ViewListener b= ViewListener.getInstance();
+				b.prevPage(Gui, a);
+			}
+		});
 		
 		next = new JButton(">");
 		next.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ViewListener b= ViewListener.getInstance();
+				b.nextPage(Gui, a);
+				
 			}
 		});
 		
