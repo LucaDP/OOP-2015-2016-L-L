@@ -4,14 +4,12 @@
 package Listener;
 
 import UIPackage.BackOffice;
-import UIPackage.ImgEdit;
 import UIPackage.Login;
+import UIPackage.Opera;
 import UIPackage.Ricerca;
-import Engine.accessManager;
-
-import java.awt.event.ActionListener;
-
-import Engine.TitleManager;
+import data.OperaComp;
+import engine.accessManager;
+import engine.TitleManager;
 
 /**
  * 
@@ -89,16 +87,17 @@ public class ViewListener {
 		a.searchOpera(finestra);
 	}
 	
+	public void view(Ricerca finestra, String username, String permesso) throws Exception{
+		TitleManager a= TitleManager.getInstance();
+		a.viewOpera(finestra, permesso);
+		
+	}
+	
 	public void searchBO(BackOffice finestra) throws Exception{
 		TitleManager a= TitleManager.getInstance();
 		a.searchOperaBO(finestra);
 	}
 	
-	public void view(Ricerca finestra, String username, String permesso) throws Exception{
-		TitleManager a= TitleManager.getInstance();
-		a.viewOpera(finestra,  permesso);
-		
-	}
 	public void viewAdmin(Ricerca finestra, String username, String permesso) throws Exception{
 		TitleManager b= TitleManager.getInstance();
 		b.viewAdmin(finestra, username, permesso);
@@ -124,7 +123,12 @@ public class ViewListener {
 	   TitleManager b= TitleManager.getInstance();
 	   b.pubbopera(finestra);
    }
+	
+   public void nextPage(Opera Frame, OperaComp a){
+	   TitleManager.showNext(a, Frame); 
+   }
+   public void prevPage(Opera Frame, OperaComp a){
+	   TitleManager.showPrev(a, Frame); 
+   }
 
 }
-
-
