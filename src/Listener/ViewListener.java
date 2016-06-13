@@ -124,11 +124,35 @@ public class ViewListener {
 	   b.pubbopera(finestra);
    }
 	
-   public void nextPage(Opera Frame, OperaComp a){
-	   TitleManager.showNext(a, Frame); 
+   public void nextPage(Opera Frame, OperaComp a, String permesso){
+	   TitleManager.showNext(a, Frame, permesso); 
    }
-   public void prevPage(Opera Frame, OperaComp a){
-	   TitleManager.showPrev(a, Frame); 
+   public void prevPage(Opera Frame, OperaComp a, String permesso){
+	   TitleManager.showPrev(a, Frame, permesso); 
    }
-
+   
+   public void revisioneTei(Opera Frame, OperaComp a){
+	   TitleManager b= TitleManager.getInstance();
+	   b.abilitaRevisione(Frame, a);
+   }
+   public void confermaTei(Opera Frame, OperaComp a, String permesso) throws Exception{
+	   TitleManager b= TitleManager.getInstance();
+	   b.pubblicaTei(Frame, a, permesso);
+	   
+   }
+   
+   public void rifiutaTei(Opera Frame, OperaComp a, String permesso){
+	   TitleManager b= TitleManager.getInstance();
+	   b.respingiTei(Frame, a, permesso);
+   }
+   
+   public void editTei(Opera Frame, OperaComp a, String permesso) throws Exception{
+	   TitleManager b= TitleManager.getInstance();
+	   b.modificaTei(Frame, a, permesso);
+   }
+   
+   public void UploadImage(Opera Frame, OperaComp a, String permesso){
+	   TitleManager b=TitleManager.getInstance();
+	   b.uploadImg(Frame, a, permesso);
+   }
 }

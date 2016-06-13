@@ -42,9 +42,10 @@ public Boolean getPubblicato() {
 public void setPubblicato(Boolean pubblicato) {
 	this.pubblicato = pubblicato;
 }
+@Override
 public String toString() {
-	return "Trascrizione [trascrittore=" + trascrittore + ", revisore=" + revisore + ", pubblicato=" + pubblicato
-			+ "]";
+	return "Trascrizione [testo=" + testo + ", trascrittore=" + trascrittore + ", revisore=" + revisore
+			+ ", pubblicato=" + pubblicato + "]";
 }
 
 }

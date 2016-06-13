@@ -1,5 +1,8 @@
 package data;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,6 +10,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+
+import com.mysql.jdbc.PreparedStatement;
 
 public class operaDAO implements titleDAO<OperaGen>{
 	
@@ -89,47 +94,84 @@ public class operaDAO implements titleDAO<OperaGen>{
 		}
 		return false;
 	}	
-/**********************************************************************************************/
-public static Boolean checkTei(String testo) throws Exception{
-	Connection conn = dbConnect.connect();
-	Statement stmt;
-	 boolean a=false;
-	 ResultSet rs;
-	 System.out.println(testo);
-	 try {
-	    stmt = conn.createStatement();
-	    if (stmt.execute("SELECT * FROM tei WHERE testo='" + testo + "'and teipubb='"+1+ "'")){
-	    	
-	    	rs = stmt.getResultSet(); 
-	    	
-	    	a= rs.isBeforeFirst(); 
-	    	if(a==true){
-	    		return true;
-	    	}else{
-	    		return false;
-	    	}
-	        
-	    }
+	
+	public Boolean pubbTei(int numeropagina, String nomeopera ) throws Exception{
+		Connection conn = dbConnect.connect();
+		Statement stmt;
+		try{
+		 stmt = conn.createStatement();
+		    if (!(stmt.execute("UPDATE `tei` SET teipubb='1' where idpagina= (SELECT id FROM pagina Where numpag='"+numeropagina+"' AND titoloopera='"+nomeopera+"')"))){
+		    	
+		    	return true;
+		    }
+		}
+		catch (SQLException ex){
+			    // handle any errors
+			    System.out.println("SQLException: " + ex.getMessage());
+			    System.out.println("SQLState: " + ex.getSQLState());
+			    System.out.println("VendorError: " + ex.getErrorCode());
+		}
+		return false;
+		
+		
 	}
-	catch (SQLException ex){
-	    // handle any errors
-	    System.out.println("SQLException: " + ex.getMessage());
-	    System.out.println("SQLState: " + ex.getSQLState());
-	    System.out.println("VendorError: " + ex.getErrorCode());
+	
+	public Boolean uploadTei(int numeropagina, String nomeopera, String testo) throws Exception{
+		
+		Connection conn = dbConnect.connect();
+		PreparedStatement pstmt;
+		try{
+			 
+		 pstmt = (PreparedStatement)conn.prepareStatement("UPDATE tei SET testo= ?  where idpagina= (SELECT id FROM pagina Where numpag= ? AND titoloopera= ?)");
+		 pstmt.setString(1, testo);
+		 pstmt.setInt(2, numeropagina);
+		 pstmt.setString(3, nomeopera);
+		    if (!(pstmt.execute())){
+		    	
+		    	return true;
+		    }
+		}
+		catch (SQLException ex){
+			    // handle any errors
+			    System.out.println("SQLException: " + ex.getMessage());
+			    System.out.println("SQLState: " + ex.getSQLState());
+			    System.out.println("VendorError: " + ex.getErrorCode());
+		}
+		return false;
+		
+		
 	}
-	return false;
-}	
-
-
-
-
-
+	public Boolean uploadScan(String nomeopera, InputStream inputStream, int numpag ) throws Exception{
+		Connection conn= dbConnect.connect();
+		PreparedStatement pstmt;
+		
+		
+		try{
+			 
+			 pstmt = (PreparedStatement)conn.prepareStatement("INSERT INTO pagina (titoloopera, numpag, img, acquisitore, revisoreimg, imgpubb) VALUES(?, ?, ?, ?, ?, ?) ");
+			 pstmt.setString(1,nomeopera);
+			 pstmt.setInt(2, numpag);
+			 pstmt.setBlob(3, inputStream);
+			 pstmt.setString(4, "Giorgio");
+			 pstmt.setString(5, "Anacleto");
+			 pstmt.setBoolean(6, false);
+			 
+			    if (!(pstmt.execute())){
+			    	
+			    	return true;
+			    }
+			}
+			catch (SQLException ex){
+				    // handle any errors
+				    System.out.println("SQLException: " + ex.getMessage());
+				    System.out.println("SQLState: " + ex.getSQLState());
+				    System.out.println("VendorError: " + ex.getErrorCode());
+			}
+			return false;
+	}
+	
+	
 }
-
-
-
-
-
 
 	
 	

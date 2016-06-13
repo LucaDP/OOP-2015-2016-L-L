@@ -100,9 +100,15 @@ public class Ricerca extends JFrame {
 		
 		btnAdmin = new JButton("Amministrazione");
 		btnAdmin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				
+			public void actionPerformed(ActionEvent e) {			
+				ViewListener b= ViewListener.getInstance();
+				try {
+					b.viewAdmin(Gui, username, permesso);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+	
 			}
 		});
 		

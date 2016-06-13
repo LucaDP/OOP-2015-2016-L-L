@@ -46,7 +46,7 @@ public class Opera extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Opera frame = new Opera(null);
+					Opera frame = new Opera(null, null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -58,7 +58,7 @@ public class Opera extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Opera(OperaComp a) {
+	public Opera(OperaComp a, String permesso) {
 		super("Opera");
 		Opera Gui=this;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -79,12 +79,18 @@ public class Opera extends JFrame {
 		RifiutaImg = new JButton("Rifiuta Img");
 		
 		UploadImg = new JButton("Upload Img");
+		UploadImg.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ViewListener b= ViewListener.getInstance();
+				b.UploadImage(Gui, a, permesso);
+			}
+		});
 		
 		prev = new JButton("<");
 		prev.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ViewListener b= ViewListener.getInstance();
-				b.prevPage(Gui, a);
+				b.prevPage(Gui, a, permesso);
 			}
 		});
 		
@@ -92,28 +98,50 @@ public class Opera extends JFrame {
 		next.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ViewListener b= ViewListener.getInstance();
-				b.nextPage(Gui, a);
+				b.nextPage(Gui, a, permesso);
 				
 			}
 		});
 		
 	    EditTei = new JButton("Edit TEI");
+	    EditTei.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent arg0) {
+	    		ViewListener b= ViewListener.getInstance();
+	    		try {
+					b.editTei(Gui, a, permesso);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	    	}
+	    });
 		
 		ConfermaTei = new JButton("Conferma TEI");
 		ConfermaTei.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ViewListener c = ViewListener.getInstance();
+				try {
+					c.confermaTei(Gui,a, permesso);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		
 		RifiutaTei = new JButton("Rifiuta TEI");
 		RifiutaTei.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ViewListener c = ViewListener.getInstance();
+				c.rifiutaTei(Gui, a, permesso);
 			}
 		});
 		
 		RevisioneTei = new JButton("Revis. TEI");
 		RevisioneTei.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ViewListener c = ViewListener.getInstance();
+				c.revisioneTei(Gui, a);
 			}
 		});
 		
@@ -187,8 +215,20 @@ public class Opera extends JFrame {
 		);
 		
 		tei = new JTextPane();
+		tei.setContentType("text/html");
+		tei.setEditable(false);
 		scrollPane.setViewportView(tei);
 		contentPane.setLayout(gl_contentPane);
+		
+		EditTei.setEnabled(false);
+		ConfermaImg.setEnabled(false);
+		RifiutaImg.setEnabled(false);
+		UploadImg.setEnabled(false);
+		RevisioneImg.setEnabled(false);
+		ConfermaTei.setEnabled(false);
+		RifiutaTei.setEnabled(false);
+		RevisioneTei.setEnabled(false);
+		
 	}
 
 }
