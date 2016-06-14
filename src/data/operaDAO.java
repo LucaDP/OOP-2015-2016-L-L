@@ -141,33 +141,70 @@ public class operaDAO implements titleDAO<OperaGen>{
 		
 		
 	}
-	public Boolean uploadScan(String nomeopera, InputStream inputStream, int numpag ) throws Exception{
+	public Boolean uploadScan(String nomeopera, InputStream inputStream, int numpag, String username ) throws Exception{
 		Connection conn= dbConnect.connect();
 		PreparedStatement pstmt;
+		PreparedStatement pstmt1;
+		PreparedStatement pstmt2;
+		ResultSet rs;
+		int id=0;
 		
 		
 		try{
-			 
-			 pstmt = (PreparedStatement)conn.prepareStatement("INSERT INTO pagina (titoloopera, numpag, img, acquisitore, revisoreimg, imgpubb) VALUES(?, ?, ?, ?, ?, ?) ");
-			 pstmt.setString(1,nomeopera);
-			 pstmt.setInt(2, numpag);
-			 pstmt.setBlob(3, inputStream);
-			 pstmt.setString(4, "Giorgio");
-			 pstmt.setString(5, "Anacleto");
-			 pstmt.setBoolean(6, false);
-			 
-			    if (!(pstmt.execute())){
-			    	
-			    	return true;
-			    }
+			pstmt = (PreparedStatement)conn.prepareStatement("SELECT id FROM pagina WHERE titoloopera=? AND numpag=?");
+			pstmt.setString(1,nomeopera);
+			pstmt.setInt(2, numpag);
+			pstmt.execute();
+			rs=pstmt.getResultSet();
+			while(rs.next()){
+				id=rs.getInt("id");
+			
 			}
-			catch (SQLException ex){
+			if(rs.isBeforeFirst()){
+				 pstmt1 = (PreparedStatement)conn.prepareStatement("INSERT INTO pagina (titoloopera, numpag, img, acquisitore) VALUES(?, ?, ?, ?) ");
+				 pstmt1.setString(1,nomeopera);
+				 pstmt1.setInt(2, numpag);
+				 pstmt1.setBlob(3, inputStream);
+				 pstmt1.setString(4, username);
+				 pstmt1.execute();
+				 pstmt1=(PreparedStatement)conn.prepareStatement("SELECT id FROM pagina WHERE titoloopera=? AND numpag=?");
+				 pstmt1.setString(1,nomeopera);
+				 pstmt1.setInt(2, numpag);
+				 pstmt1.execute();
+				 rs=pstmt1.getResultSet();
+				 while(rs.next()){
+					 id=rs.getInt("id");
+				 }
+				 pstmt2 = (PreparedStatement)conn.prepareStatement("INSERT INTO tei (idpagina) VALUES (?)");
+				 pstmt2.setInt(1, id);
+				 if(pstmt2.execute()){
+					 return true;
+				 }
+				 else{
+					 System.out.println("PIPPO");
+					 return false;
+				 }
+			}
+			else{
+				pstmt = (PreparedStatement)conn.prepareStatement("UPDATE pagina SET img= ? WHERE id=?");
+				pstmt.setBlob(1, inputStream);
+				pstmt.setInt(2, id);
+				
+				if(pstmt.execute()){
+					return true;
+				}else{
+					return false;
+				}
+				 
+			}
+		}	
+		catch (SQLException ex){
 				    // handle any errors
-				    System.out.println("SQLException: " + ex.getMessage());
-				    System.out.println("SQLState: " + ex.getSQLState());
-				    System.out.println("VendorError: " + ex.getErrorCode());
-			}
-			return false;
+			System.out.println("SQLException: " + ex.getMessage());
+			System.out.println("SQLState: " + ex.getSQLState());
+			System.out.println("VendorError: " + ex.getErrorCode());
+		}
+	return false;
 	}
 	
 	

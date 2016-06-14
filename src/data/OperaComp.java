@@ -24,6 +24,14 @@ public class OperaComp extends OperaGen {
 	public void setPagine(ArrayList<Page> pagine) {
 		this.pagine=pagine;
 	}
+	public void addPagina(Page nuovapagina){
+		pagine.add(nuovapagina);
+	}
 
+	@Override
+	public String toString() {
+		return "OperaComp [pagTot=" + 0 + ", pagine=" + 0  + "]";
+	}
+	
 
 }

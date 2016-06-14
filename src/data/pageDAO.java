@@ -6,10 +6,12 @@ import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+
+import com.mysql.jdbc.PreparedStatement;
 
 
 
@@ -19,20 +21,30 @@ public class pageDAO implements pagesDAO {
 	//deve prendere solo le pagine delle immagini non revisionate se boolean è true
 	//altrimenti deve prendere tutto
 	
-	public OperaComp selectPages(String opera) throws Exception{
+	public OperaGen selectPages(String opera) throws Exception{
+		System.out.println("INIZIOE");
 		Connection conn= dbConnect.connect();
-		Statement stmt;
+		PreparedStatement stmt;
 		ResultSet rs;
-		ArrayList<Page> pagine= new ArrayList();
-		OperaComp a= new OperaComp(null, null, null, null, 0, pagine);
+		
+		OperaGen a= null;
 		int count=0;
+		
+		/*OperaGen a;
+		 * se la query trova le pagine allora a= new OperaComp() e vado a riempire
+		 * altrimenti a= new OperaGen();
+		 * */
 		
 		
 		try {
-		    stmt = conn.createStatement();
-		    	  if(stmt.execute("SELECT img, acquisitore, revisoreimg, trascrittore, revisoretei, numpag, imgpubb, teipubb, testo  from pagina LEFT JOIN tei ON pagina.id=tei.idpagina WHERE pagina.titoloopera='"+opera+"'ORDER BY numpag ASC"))  {     
-			        rs = stmt.getResultSet();
-			        
+			String sql="SELECT img, acquisitore, revisoreimg, trascrittore, revisoretei, numpag, imgpubb, teipubb, testo  from pagina LEFT JOIN tei ON pagina.id=tei.idpagina WHERE pagina.titoloopera=? ORDER BY numpag ASC";
+		    stmt = (PreparedStatement) conn.prepareStatement(sql);
+		    stmt.setString(1, opera);
+		    stmt.execute();
+		    rs = stmt.getResultSet();
+		    if(rs.isBeforeFirst())  {      
+			        ArrayList<Page> pagine= new ArrayList<Page>();
+			        a= new OperaComp(null, null, null, null, 0, pagine);
 			        while(rs.next()){
 			        	++count;
 			        	Trascrizione tras= new Trascrizione(rs.getString("testo"), rs.getString("trascrittore"), rs.getString("revisoretei"), rs.getBoolean("teipubb"));
@@ -43,31 +55,42 @@ public class pageDAO implements pagesDAO {
 			        	Immagine img =new Immagine(bufferedImage, rs.getString("acquisitore"), rs.getString("revisoreimg"), rs.getBoolean("imgpubb"));
 			        	Page k= new Page(count, img, tras);
 			        	pagine.add(k);
-		        }
-		          
-		    }  
-		}
-		catch (SQLException ex){
-		    // handle any errors
-		    System.out.println("SQLException: " + ex.getMessage());
-		    System.out.println("SQLState: " + ex.getSQLState());
-		    System.out.println("VendorError: " + ex.getErrorCode());
-		}
-		a.setPagTot(count);
-		try {
-		    stmt = conn.createStatement();
-		   
-		    //riempio le info
-			    if (stmt.execute("SELECT * FROM opera WHERE titolo='" + opera + "'")){
-			        rs = stmt.getResultSet(); 
-			        while(rs.next()){
-			        	a.setAutore(rs.getString("autore"));
-			        	a.setEpoca(rs.getString("epoca"));
-			        	a.setNomeOpera(rs.getString("titolo"));
-			        	a.setPubblicata(rs.getBoolean("pubblicato"));
-		        }
-		          
-		    }  
+			        	System.out.println("arrivato1");
+			        }
+			        ((OperaComp)a).setPagTot(count);
+			        ((OperaComp)a).setPagine(pagine);
+			        
+					
+					   
+					    //riempio le info
+					if (stmt.execute("SELECT * FROM opera WHERE titolo='" + opera + "'")){
+						rs = stmt.getResultSet(); 
+						while(rs.next()){
+							a.setAutore(rs.getString("autore"));
+						    a.setEpoca(rs.getString("epoca"));
+						    a.setNomeOpera(rs.getString("titolo"));
+						    a.setPubblicata(rs.getBoolean("pubblicato"));
+						    }    
+					}
+					System.out.println("ARRIVO QUI");
+					return a;
+		    }
+		    else{
+		    	  
+		    		  a=new OperaGen(null, null, null, null);
+		    		  System.out.println("arrivato2");
+		    		  if (stmt.execute("SELECT * FROM opera WHERE titolo='" + opera + "'")){
+					        rs = stmt.getResultSet(); 
+					        while(rs.next()){
+					        	a.setAutore(rs.getString("autore"));
+					        	a.setEpoca(rs.getString("epoca"));
+					        	a.setNomeOpera(rs.getString("titolo"));
+					        	a.setPubblicata(rs.getBoolean("pubblicato"));
+					        	System.out.println("arrivato3");
+					        }
+		    		  }
+		    		  return a;
+		    }
 		}
 		catch (SQLException ex){
 		    // handle any errors
@@ -76,8 +99,11 @@ public class pageDAO implements pagesDAO {
 		    System.out.println("VendorError: " + ex.getErrorCode());
 		}
 		
-		a.setPagine(pagine);
 		return a;
+		
+		
+		
+		
 		
 		
 	}

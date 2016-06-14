@@ -3,6 +3,9 @@
  */
 package UIPackage;
 
+import data.OperaGen;
+import data.OperaComp;
+
 /**
  * 
  * @author Luca
@@ -18,6 +21,7 @@ public class Main {
 		// TODO Auto-generated method stub
 		Login frame = new Login();
 		frame.setVisible(true);
+		
 		
 
 	}

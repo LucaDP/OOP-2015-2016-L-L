@@ -6,6 +6,7 @@ public class OperaGen {
 	private String epoca;
 	private Boolean pubblicata;
 	
+	
 	public OperaGen(String autore, String nomeOpera, String epoca, Boolean pubblicata) {
 		super();
 		this.autore = autore;

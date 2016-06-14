@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import Listener.ViewListener;
 import data.OperaComp;
+import data.OperaGen;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -46,7 +47,7 @@ public class Opera extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Opera frame = new Opera(null, null);
+					Opera frame = new Opera(null, null, null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -58,7 +59,7 @@ public class Opera extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Opera(OperaComp a, String permesso) {
+	public Opera(OperaGen a, String permesso, String username) {
 		super("Opera");
 		Opera Gui=this;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -82,7 +83,7 @@ public class Opera extends JFrame {
 		UploadImg.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ViewListener b= ViewListener.getInstance();
-				b.UploadImage(Gui, a, permesso);
+				b.uploadImage(Gui, a, permesso, username);
 			}
 		});
 		
@@ -90,7 +91,7 @@ public class Opera extends JFrame {
 		prev.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ViewListener b= ViewListener.getInstance();
-				b.prevPage(Gui, a, permesso);
+				b.prevPage(Gui, a, permesso, username);
 			}
 		});
 		
@@ -98,7 +99,7 @@ public class Opera extends JFrame {
 		next.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ViewListener b= ViewListener.getInstance();
-				b.nextPage(Gui, a, permesso);
+				b.nextPage(Gui, a, permesso, username);
 				
 			}
 		});
@@ -108,7 +109,7 @@ public class Opera extends JFrame {
 	    	public void actionPerformed(ActionEvent arg0) {
 	    		ViewListener b= ViewListener.getInstance();
 	    		try {
-					b.editTei(Gui, a, permesso);
+					b.editTei(Gui, a, permesso, username);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -121,7 +122,7 @@ public class Opera extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ViewListener c = ViewListener.getInstance();
 				try {
-					c.confermaTei(Gui,a, permesso);
+					c.confermaTei(Gui,a, permesso, username);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -133,7 +134,7 @@ public class Opera extends JFrame {
 		RifiutaTei.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ViewListener c = ViewListener.getInstance();
-				c.rifiutaTei(Gui, a, permesso);
+				c.rifiutaTei(Gui, a, permesso, username);
 			}
 		});
 		
@@ -141,7 +142,7 @@ public class Opera extends JFrame {
 		RevisioneTei.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ViewListener c = ViewListener.getInstance();
-				c.revisioneTei(Gui, a);
+				c.revisioneTei(Gui, a, permesso, username);
 			}
 		});
 		

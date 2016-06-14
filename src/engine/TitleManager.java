@@ -71,23 +71,51 @@ public class TitleManager {
 	
 	
 	
-	public void viewOpera(Ricerca finestra, String permesso) throws Exception{
+	public void viewOpera(Ricerca finestra, String permesso, String username) throws Exception{
 		String nomeopera= (String)(finestra.comboBox.getSelectedItem());
 		System.out.println(nomeopera);
-		OperaComp a;
+		
+		/*
+		 * if(check è true){
+		 * è opera non pubblicata che potrebbe non avere pagine
+		 * }
+		 * if(nomeopera==null) non selezionata oppure si
+		 * 
+		 * 
+		 * 
+		 * 
+		 * */
+		
+		OperaGen a;
 		if(nomeopera==null){
 		
 			JOptionPane.showMessageDialog (null, "non hai selezionato alcuna opera");
 		}
 		else{
 			pagesDAO b= new pageDAO();
-			a=b.selectPages(nomeopera);
+			/*a è uguale o a opera gen o a opera comp*/
+			if(b.selectPages(nomeopera) instanceof OperaComp){
+				a=new OperaComp(null,null,null,null,0, null);
+				a=b.selectPages(nomeopera);
+				((OperaComp)a).getPagTot();
+				Opera Frame= new Opera(a, permesso, username);
+				Frame.setVisible(true);
+				TitleManager.showOperaPage(a, Frame, 0, permesso, username);
+			}else{
+				a=b.selectPages(nomeopera);
+				Opera Frame= new Opera(a, permesso, username);
+				Frame.setVisible(true);
+				TitleManager.showOperaPage(a, Frame, 0, permesso, username);
+				
+			}
 			
-			Opera Frame= new Opera(a, permesso);
 			
-			Frame.setVisible(true);
+			/*costruttore di opera deve prendere OperaGen*/
 			
-			TitleManager.showOperaPage(a, Frame, 0, permesso);
+			
+			
+			
+			
 			
 		}
 		
@@ -165,74 +193,93 @@ public class TitleManager {
 	}
 	
 	/**PASSARE OPERA COMP? MEGLIO OPERAGEN NO? A e B sottoclasse di A, con instance of su B faccio in modo di non applicare i metodi (get tot page etc etc che OperaGen non ha) su Oggetti di tipo A**/
-	public static void showPrev(OperaComp a, Opera Frame, String permesso){
+	public static void showPrev(OperaGen a, Opera Frame, String permesso, String username){
 		int i=Integer.parseInt(Frame.currpage.getText());
-		TitleManager.showOperaPage(a, Frame, i-2, permesso);
+		TitleManager.showOperaPage(a, Frame, i-2, permesso, username);
 	}
 	
-	public static void showNext(OperaComp a, Opera Frame, String permesso){
+	public static void showNext(OperaGen a, Opera Frame, String permesso, String username){
 		int i=Integer.parseInt(Frame.currpage.getText());
-		TitleManager.showOperaPage(a, Frame, i, permesso);
+		TitleManager.showOperaPage(a, Frame, i, permesso, username);
 	}
-	
-	public static void showOperaPage(OperaComp a,Opera Frame, int i, String permesso){
-		Frame.prev.setEnabled(true);
-		Frame.next.setEnabled(true);
-		Frame.RevisioneTei.setEnabled(false);
-		Frame.RevisioneImg.setEnabled(false);
-		Frame.EditTei.setEnabled(false);
-		Frame.tei.setEditable(false);
-		Frame.UploadImg.setEnabled(false);
-		Frame.tei.setContentType("text/html");
+	/*prende opera gen*/
+	public static void showOperaPage(OperaGen a,Opera Frame, int i, String permesso, String username){
+		
+		/*se a è un istanza di operaComp allora fai questo, altrimenti altrimenti se è un opera Gen questa roba non la fa*/
+		if(a instanceof OperaComp){
+			Frame.prev.setEnabled(true);
+			Frame.next.setEnabled(true);
+			Frame.RevisioneTei.setEnabled(false);
+			Frame.RevisioneImg.setEnabled(false);
+			Frame.EditTei.setEnabled(false);
+			Frame.tei.setEditable(false);
+			Frame.UploadImg.setEnabled(false);
+			Frame.tei.setContentType("text/html");
 		/*setta img e tei*/
-		Frame.img.setIcon(new ImageIcon(a.getPagine().get(i).getScan().getPagina().getScaledInstance(475, 565, java.awt.Image.SCALE_SMOOTH)));
-		Frame.tei.setText(a.getPagine().get(i).getTEI().getTesto());
-		System.out.println(a.getPagine().get(i).getTEI().getTesto());
+			Frame.img.setIcon(new ImageIcon(((OperaComp)a).getPagine().get(i).getScan().getPagina().getScaledInstance(475, 565, java.awt.Image.SCALE_SMOOTH)));
+			Frame.tei.setText(((OperaComp)a).getPagine().get(i).getTEI().getTesto());
+			System.out.println(((OperaComp)a).getPagine().get(i).getTEI().getTesto());
 		
 		
 		/*Abilita i bottoni a seconda del permesso e dello stato "pubblicato" del tei o dell'immagine*/
-		if((!(a.getPagine().get(i).getTEI().getPubblicato())) && (permesso.equals("rt") || permesso.equals("ad"))){
-			Frame.RevisioneTei.setEnabled(true);
-		}
-		if((!(a.getPagine().get(i).getScan().getPubblicata())) && (permesso.equals("ri") || permesso.equals("ad")) ){
-			Frame.RevisioneImg.setEnabled(true);
-		}
+			if((!(((OperaComp)a).getPagine().get(i).getTEI().getPubblicato())) && (permesso.equals("rt") || permesso.equals("ad"))){
+				Frame.RevisioneTei.setEnabled(true);
+			}
+			if((!(((OperaComp)a).getPagine().get(i).getScan().getPubblicata())) && (permesso.equals("ri") || permesso.equals("ad")) ){
+				Frame.RevisioneImg.setEnabled(true);
+			}
 		
-		if((!(a.getPagine().get(i).getTEI().getPubblicato())) && (permesso.equals("tr") || permesso.equals("ad")) ){
-			Frame.EditTei.setEnabled(true);
-			Frame.tei.setEditable(true);
-			Frame.tei.setContentType("text/plain");
-			Frame.tei.setText(a.getPagine().get(i).getTEI().getTesto());
-		}else{
-			/*Frame.EditTei.setEnabled(false);
-			String tei=Frame.tei.getText();
-			Frame.tei.setEditable(true);
-			Frame.tei.setContentType("text/html");
-			Frame.tei.setText(tei);*/
+			if((!(((OperaComp)a).getPagine().get(i).getTEI().getPubblicato())) && (permesso.equals("tr") || permesso.equals("ad")) ){
+				Frame.EditTei.setEnabled(true);
+				Frame.tei.setEditable(true);
+				Frame.tei.setContentType("text/plain");
+				Frame.tei.setText(((OperaComp)a).getPagine().get(i).getTEI().getTesto());
+			}
+			if((!(((OperaComp)a).getPagine().get(i).getScan().getPubblicata())) && (permesso.equals("ac") || permesso.equals("ad")) ){
+				Frame.UploadImg.setEnabled(true);
+			}
+		
+		
+		
+			Frame.currpage.setText(Integer.toString(((OperaComp)a).getPagine().get(i).getNumpag()));
+			int totalpages=((OperaComp)a).getPagTot();
+			System.out.println(totalpages);
+			Frame.totpage.setText(Integer.toString(totalpages));
+			/*gestione prev e next*/
+			if(i==totalpages-1){
+				Frame.next.setEnabled(false);
+			}
+			if(totalpages==1){
+				Frame.next.setEnabled(false);
+			}
+			if(i==0){
+				Frame.prev.setEnabled(false);
+			}
+		}
+		else{
+			ArrayList<Page> primapagina=new ArrayList();
+			a = new OperaComp(a.getAutore(), a.getNomeOpera(), a.getEpoca(),false, 1, primapagina);
+			Trascrizione tras= new Trascrizione();
+			Immagine img = new Immagine();
+			Page paginainiziale= new Page(i, img, tras);
+			((OperaComp)a).getPagine().add(paginainiziale);
+			((OperaComp)a).getPagine().get(0);
+			Frame.prev.setEnabled(false);
+			Frame.next.setEnabled(false);
+			Frame.currpage.setText("1");
+			Frame.totpage.setText("1");
+			if(permesso.equals("ri") || permesso.equals("ad")){
+				Frame.RevisioneImg.setEnabled(true);
+			}
+			if(permesso.equals("ac") || permesso.equals("ad")){
+				Frame.UploadImg.setEnabled(true);	
+			}
 			
 		}
-		if((!(a.getPagine().get(i).getScan().getPubblicata())) && (permesso.equals("ac") || permesso.equals("ad")) ){
-			Frame.UploadImg.setEnabled(true);
-		}
 		
-		
-		
-		Frame.currpage.setText(Integer.toString(a.getPagine().get(i).getNumpag()));
-		int totalpages=a.getPagTot();
-		Frame.totpage.setText(Integer.toString(totalpages));
-		/*gestione prev e next*/
-		if(i==totalpages-1){
-			Frame.next.setEnabled(false);
-		}
-		if(totalpages==1){
-			Frame.next.setEnabled(false);
-		}
-		if(i==0){
-			Frame.prev.setEnabled(false);
-		}
 	}
 	
-	public void abilitaRevisione(Opera Frame, OperaComp a){
+	public void abilitaRevisione(Opera Frame, OperaGen a, String permesso, String username ){
 		int i=Integer.parseInt(Frame.currpage.getText());
 		Frame.RevisioneTei.setEnabled(false);
 		Frame.RifiutaTei.setEnabled(true);
@@ -240,11 +287,11 @@ public class TitleManager {
 		Frame.prev.setEnabled(false);
 		Frame.next.setEnabled(false);
 		Frame.tei.setContentType("text/plain");
-		Frame.tei.setText(a.getPagine().get(i-1).getTEI().getTesto());
+		Frame.tei.setText(((OperaComp)a).getPagine().get(i-1).getTEI().getTesto());
 	}
 	
 	
-	public void pubblicaTei(Opera Frame, OperaComp a, String permesso) throws Exception{
+	public void pubblicaTei(Opera Frame, OperaGen a, String permesso, String username) throws Exception{
 		operaDAO b= new operaDAO();
 		/**TEI PUBBLICATO**/
 		/*sia nel db che sull'oggetto in locale*/
@@ -252,11 +299,11 @@ public class TitleManager {
 
 		if(b.pubbTei(i, a.getNomeOpera())/*db*/){
 			/*locale*/
-			a.getPagine().get(i-1).getTEI().setPubblicato(true);
+			((OperaComp)a).getPagine().get(i-1).getTEI().setPubblicato(true);
 			Frame.tei.setContentType("text/html");
 			Frame.ConfermaTei.setEnabled(false);
 			Frame.RifiutaTei.setEnabled(false);
-			TitleManager.showOperaPage(a, Frame, i-1, permesso);
+			TitleManager.showOperaPage(a, Frame, i-1, permesso, username);
 		}
 		else{
 		/**altrimenti**/
@@ -264,16 +311,16 @@ public class TitleManager {
 		}
 	}
 	
-	public void respingiTei(Opera Frame, OperaComp a, String permesso){
+	public void respingiTei(Opera Frame, OperaGen a, String permesso, String username){
 		int i=Integer.parseInt(Frame.currpage.getText());
 		Frame.tei.setContentType("text/html");
 		Frame.ConfermaTei.setEnabled(false);
 		Frame.RifiutaTei.setEnabled(false);
 		Frame.RevisioneTei.setEnabled(true);
-		TitleManager.showOperaPage(a, Frame, i-1, permesso);
+		TitleManager.showOperaPage(a, Frame, i-1, permesso, username);
 	}
 	
-	public void modificaTei(Opera Frame, OperaComp a, String permesso) throws Exception{
+	public void modificaTei(Opera Frame, OperaGen a, String permesso, String username) throws Exception{
 		operaDAO b= new operaDAO();
 		int i=Integer.parseInt(Frame.currpage.getText());
 		String temp= Frame.tei.getText();
@@ -281,11 +328,11 @@ public class TitleManager {
 		
 		if(b.uploadTei(i, a.getNomeOpera(), temp)){
 			/*modifica in locale*/
-			a.getPagine().get(i-1).getTEI().setTesto(temp);
-			System.out.println(a.getPagine().get(i-1).getTEI().getTesto());
+			((OperaComp)a).getPagine().get(i-1).getTEI().setTesto(temp);
+			System.out.println(((OperaComp)a).getPagine().get(i-1).getTEI().getTesto());
 			JOptionPane.showMessageDialog (null, "Tei caricato correttamente");
 			Frame.tei.setContentType("text/html");
-			TitleManager.showOperaPage(a, Frame, i-1, permesso);
+			TitleManager.showOperaPage(a, Frame, i-1, permesso, username);
 		}
 		else{
 			JOptionPane.showMessageDialog (null, "qualcosa è andato storto, riprova");
@@ -294,11 +341,12 @@ public class TitleManager {
 		
 	}
 	
-	public void uploadImg(Opera Frame, OperaComp a, String permesso){
+	public void uploadImg(Opera Frame, OperaGen a, String permesso, String username){
 		operaDAO b=new operaDAO();
 		JFileChooser selectimagefile= new JFileChooser();
 		File f= null;
 		Image img= null;
+		int numpag=Integer.parseInt(Frame.currpage.getText());
 		BufferedImage importa= null;
 		int returnval= selectimagefile.showOpenDialog(Frame);
 		if(returnval==JFileChooser.APPROVE_OPTION){
@@ -307,16 +355,24 @@ public class TitleManager {
 				importa= ImageIO.read(f);
 				img= importa.getScaledInstance(475, 565, java.awt.Image.SCALE_SMOOTH);
 				InputStream inputStream = new FileInputStream(f);
-				if(b.uploadScan(a.getNomeOpera(), inputStream, Integer.parseInt(Frame.currpage.getText()))){
+				if(b.uploadScan(a.getNomeOpera(), inputStream, Integer.parseInt(Frame.currpage.getText()),username)){
+					
 					JOptionPane.showMessageDialog(null, "Caricata");
+					Immagine nuovaimg= new Immagine(importa,"Ambrogio","Gino",false);
+					Trascrizione trascrizionevuota=new Trascrizione();
+					Page nuovapagina= new Page(numpag+1, nuovaimg, trascrizionevuota  );
+					
+					/*se è opera gen devo fare il cast a opera comp con instance of*/
+				((OperaComp)a).addPagina(nuovapagina);
+					TitleManager.showOperaPage(a, Frame, numpag, permesso, username);
 				}
 				else{
 					JOptionPane.showMessageDialog(null, "Non caricata");
 				}
 				
 			}catch(Exception h){
-				JOptionPane.showMessageDialog(null, "Deve essere un file immagine");
-				return;
+				JOptionPane.showMessageDialog(null, h);
+				
 			}
 		}
 	

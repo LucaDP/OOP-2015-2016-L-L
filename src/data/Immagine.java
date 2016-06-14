@@ -8,6 +8,10 @@ private BufferedImage pagina;
 private String acquisitore;
 private String revisore;
 private Boolean pubblicata;
+
+public Immagine(){
+	
+}
 public Immagine(BufferedImage pagina, String acquisitore, String revisore, Boolean pubblicata) {
 	this.pagina = pagina;
 	this.acquisitore = acquisitore;

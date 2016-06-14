@@ -9,6 +9,9 @@ private String trascrittore;
 private String revisore;
 
 private Boolean pubblicato;
+public Trascrizione(){
+	
+}
 
 public Trascrizione(String testo, String trascrittore, String revisore, Boolean pubblicato) {
 	this.testo = testo;

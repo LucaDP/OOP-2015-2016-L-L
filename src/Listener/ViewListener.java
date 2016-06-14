@@ -8,6 +8,7 @@ import UIPackage.Login;
 import UIPackage.Opera;
 import UIPackage.Ricerca;
 import data.OperaComp;
+import data.OperaGen;
 import engine.accessManager;
 import engine.TitleManager;
 
@@ -89,7 +90,7 @@ public class ViewListener {
 	
 	public void view(Ricerca finestra, String username, String permesso) throws Exception{
 		TitleManager a= TitleManager.getInstance();
-		a.viewOpera(finestra, permesso);
+		a.viewOpera(finestra, permesso, username);
 		
 	}
 	
@@ -124,35 +125,35 @@ public class ViewListener {
 	   b.pubbopera(finestra);
    }
 	
-   public void nextPage(Opera Frame, OperaComp a, String permesso){
-	   TitleManager.showNext(a, Frame, permesso); 
+   public void nextPage(Opera Frame, OperaGen a, String permesso, String username){
+	   TitleManager.showNext(a, Frame, permesso, username); 
    }
-   public void prevPage(Opera Frame, OperaComp a, String permesso){
-	   TitleManager.showPrev(a, Frame, permesso); 
+   public void prevPage(Opera Frame, OperaGen a, String permesso, String username){
+	   TitleManager.showPrev(a, Frame, permesso, username); 
    }
    
-   public void revisioneTei(Opera Frame, OperaComp a){
+   public void revisioneTei(Opera Frame, OperaGen a, String permesso, String username){
 	   TitleManager b= TitleManager.getInstance();
-	   b.abilitaRevisione(Frame, a);
+	   b.abilitaRevisione(Frame, a, permesso ,username);
    }
-   public void confermaTei(Opera Frame, OperaComp a, String permesso) throws Exception{
+   public void confermaTei(Opera Frame, OperaGen a, String permesso, String username) throws Exception{
 	   TitleManager b= TitleManager.getInstance();
-	   b.pubblicaTei(Frame, a, permesso);
+	   b.pubblicaTei(Frame, a, permesso, username);
 	   
    }
    
-   public void rifiutaTei(Opera Frame, OperaComp a, String permesso){
+   public void rifiutaTei(Opera Frame, OperaGen a, String permesso, String username){
 	   TitleManager b= TitleManager.getInstance();
-	   b.respingiTei(Frame, a, permesso);
+	   b.respingiTei(Frame, a, permesso, username);
    }
    
-   public void editTei(Opera Frame, OperaComp a, String permesso) throws Exception{
+   public void editTei(Opera Frame, OperaGen a, String permesso, String username) throws Exception{
 	   TitleManager b= TitleManager.getInstance();
-	   b.modificaTei(Frame, a, permesso);
+	   b.modificaTei(Frame, a, permesso, username);
    }
    
-   public void UploadImage(Opera Frame, OperaComp a, String permesso){
+   public void uploadImage(Opera Frame, OperaGen a, String permesso, String username){
 	   TitleManager b=TitleManager.getInstance();
-	   b.uploadImg(Frame, a, permesso);
+	   b.uploadImg(Frame, a, permesso, username);
    }
 }
