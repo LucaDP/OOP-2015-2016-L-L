@@ -156,4 +156,19 @@ public class ViewListener {
 	   TitleManager b=TitleManager.getInstance();
 	   b.uploadImg(Frame, a, permesso, username);
    }
+   public void revisioneImg(Opera Frame, OperaGen a, String permesso, String username){
+	   TitleManager b= TitleManager.getInstance();
+	   b.abilitaRevisioneImg(Frame, a, permesso ,username);
+   }
+   public void rifiutaImg(Opera Frame, OperaGen a, String permesso, String username){
+	   TitleManager b= TitleManager.getInstance();
+	   b.respingiImg(Frame, a, permesso, username);
+   }
+   public void confermaImg(Opera Frame, OperaGen a, String permesso, String username) throws Exception{
+	   TitleManager b= TitleManager.getInstance();
+	   b.pubblicaImg(Frame, a, permesso, username);
+	   
+   }
+
 }
+
