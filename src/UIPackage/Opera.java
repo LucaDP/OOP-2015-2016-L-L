@@ -72,12 +72,36 @@ public class Opera extends JFrame {
 		RevisioneImg = new JButton("Revis. Img");
 		RevisioneImg.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ViewListener c = ViewListener.getInstance();
+				c.revisioneImg(Gui, a, permesso, username);
 			}
 		});
 		
 		ConfermaImg = new JButton("Conferma Img");
+		ConfermaImg.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ViewListener c = ViewListener.getInstance();
+				try {
+					c.confermaImg(Gui,a, permesso, username);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		
 		RifiutaImg = new JButton("Rifiuta Img");
+		RifiutaImg.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ViewListener c = ViewListener.getInstance();
+				try {
+					c.rifiutaImg(Gui,a, permesso, username);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		
 		UploadImg = new JButton("Upload Img");
 		UploadImg.addActionListener(new ActionListener() {
