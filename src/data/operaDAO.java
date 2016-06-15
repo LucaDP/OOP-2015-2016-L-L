@@ -94,7 +94,8 @@ public class operaDAO implements titleDAO<OperaGen>{
 		}
 		return false;
 	}	
-	
+
+/**********************************************************************************************/	
 	public Boolean pubbTei(int numeropagina, String nomeopera ) throws Exception{
 		Connection conn = dbConnect.connect();
 		Statement stmt;
@@ -115,6 +116,8 @@ public class operaDAO implements titleDAO<OperaGen>{
 		
 		
 	}
+
+/**********************************************************************************************/
 	
 	public Boolean uploadTei(int numeropagina, String nomeopera, String testo) throws Exception{
 		
@@ -206,7 +209,30 @@ public class operaDAO implements titleDAO<OperaGen>{
 		}
 	return false;
 	}
-	
+
+/**********************************************************************************************/
+	public Boolean pubbImg(int numeropagina, String nomeopera ) throws Exception{
+		Connection conn = dbConnect.connect();
+		Statement stmt;
+		try{
+		 stmt = conn.createStatement();
+		 System.out.println("PRIMA");
+		 if (!(stmt.execute("UPDATE pagina " + " SET imgpubb='1' WHERE numpag='"+numeropagina+"'  AND titoloopera='"+nomeopera+ "'"))) {
+		    	System.out.println(stmt);
+		    	return true;
+		    	 /*if (stmt.execute("UPDATE utenti" + " SET gruppo = '"+permesso+  "' WHERE username = '"+usernameutente+"'")){*/
+		    }
+		}
+		catch (SQLException ex){
+			    // handle any errors
+			    System.out.println("SQLException: " + ex.getMessage());
+			    System.out.println("SQLState: " + ex.getSQLState());
+			    System.out.println("VendorError: " + ex.getErrorCode());
+		}
+		return false;
+		
+		
+	}
 	
 }
 
