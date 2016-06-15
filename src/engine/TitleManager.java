@@ -377,4 +377,48 @@ public class TitleManager {
 		}
 	
 	}
+/**********************************************************************************************/
+	public void abilitaRevisioneImg(Opera Frame, OperaGen a, String permesso, String username ){
+		int i=Integer.parseInt(Frame.currpage.getText());
+		Frame.RevisioneTei.setEnabled(false);
+		Frame.RifiutaImg.setEnabled(true);
+		Frame.ConfermaImg.setEnabled(true);
+		Frame.prev.setEnabled(false);
+		Frame.next.setEnabled(false);
+		//Frame.tei.setContentType("text/plain");
+		//Frame.tei.setText(((OperaComp)a).getPagine().get(i-1).getTEI().getTesto());
+	}
+	
+/**********************************************************************************************/
+	
+	public void respingiImg(Opera Frame, OperaGen a, String permesso, String username){
+		int i=Integer.parseInt(Frame.currpage.getText());
+		//Frame.tei.setContentType("text/html");
+		Frame.ConfermaImg.setEnabled(false);
+		Frame.RifiutaImg.setEnabled(false);
+		Frame.RevisioneImg.setEnabled(true);
+		TitleManager.showOperaPage(a, Frame, i-1, permesso, username);
+	}
+
+/**********************************************************************************************/
+	public void pubblicaImg(Opera Frame, OperaGen a, String permesso, String username) throws Exception{
+		operaDAO b= new operaDAO();
+		/**TEI PUBBLICATO**/
+		/*sia nel db che sull'oggetto in locale*/
+		int i=Integer.parseInt(Frame.currpage.getText());
+
+		if(b.pubbImg(i, a.getNomeOpera())/*db*/){
+			/*locale*/
+			((OperaComp)a).getPagine().get(i-1).getTEI().setPubblicato(true);
+			//Frame.tei.setContentType("text/html");
+			Frame.ConfermaImg.setEnabled(false);
+			Frame.RifiutaImg.setEnabled(false);
+			TitleManager.showOperaPage(a, Frame, i-1, permesso, username);
+			JOptionPane.showMessageDialog (null, "OK");
+		}
+		else{
+		/**altrimenti**/
+			JOptionPane.showMessageDialog (null, "qualcosa è andato storto, riprova");
+		}
+	}
 }	
