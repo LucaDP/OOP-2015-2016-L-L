@@ -51,16 +51,19 @@ public class operaDAO implements titleDAO<OperaGen>{
 	
 	
 	public Boolean creareopera(String nomeopera, String autore, String epoca) throws Exception{
-		Connection conn = dbConnect.connect();
-		Statement stmt;
+		Connection conn= dbConnect.connect();
+		PreparedStatement pstmt;
+		ResultSet rs;
 		 int a=0;
 		try {
-		    stmt = conn.createStatement();
-		    if (stmt.execute("INSERT INTO opera (titolo, autore, epoca, pubblicato) VALUES ('"+nomeopera+"','"+autore+"','"+epoca+"','"+a+"')")){
-		    	/***********ATTENZIONE****************/
-		    	JOptionPane.showMessageDialog (null, "opera inserita");
-		    	return true;
-		    }
+		   
+			pstmt = (PreparedStatement)conn.prepareStatement("INSERT INTO opera (titolo, autore, epoca, pubblicato) VALUES(?, ?, ?, ?) ");
+			 pstmt.setString(1,nomeopera);
+			 pstmt.setString(2, autore);
+			 pstmt.setString(3, epoca);
+			 pstmt.setBoolean(4, false);
+			 pstmt.execute();
+		
 		}
 		catch (SQLException ex){
 		    // handle any errors
