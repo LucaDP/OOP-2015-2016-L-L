@@ -383,6 +383,7 @@ public class TitleManager {
 		Frame.RevisioneTei.setEnabled(false);
 		Frame.RifiutaImg.setEnabled(true);
 		Frame.ConfermaImg.setEnabled(true);
+		Frame.RevisioneImg.setEnabled(false);
 		Frame.prev.setEnabled(false);
 		Frame.next.setEnabled(false);
 		//Frame.tei.setContentType("text/plain");
@@ -398,6 +399,7 @@ public class TitleManager {
 		Frame.RifiutaImg.setEnabled(false);
 		Frame.RevisioneImg.setEnabled(true);
 		TitleManager.showOperaPage(a, Frame, i-1, permesso, username);
+		JOptionPane.showMessageDialog (null, "immagine rifiutata");
 	}
 
 /**********************************************************************************************/
@@ -407,14 +409,17 @@ public class TitleManager {
 		/*sia nel db che sull'oggetto in locale*/
 		int i=Integer.parseInt(Frame.currpage.getText());
 
-		if(b.pubbImg(i, a.getNomeOpera())/*db*/){
+		if(b.pubbImg(i, a.getNomeOpera(),username)){
 			/*locale*/
 			((OperaComp)a).getPagine().get(i-1).getTEI().setPubblicato(true);
 			//Frame.tei.setContentType("text/html");
+			
 			Frame.ConfermaImg.setEnabled(false);
 			Frame.RifiutaImg.setEnabled(false);
+			
 			TitleManager.showOperaPage(a, Frame, i-1, permesso, username);
 			JOptionPane.showMessageDialog (null, "OK");
+			Frame.RevisioneImg.setEnabled(false);
 		}
 		else{
 		/**altrimenti**/

@@ -211,13 +211,13 @@ public class operaDAO implements titleDAO<OperaGen>{
 	}
 
 /**********************************************************************************************/
-	public Boolean pubbImg(int numeropagina, String nomeopera ) throws Exception{
+	public Boolean pubbImg(int numeropagina, String nomeopera,String username ) throws Exception{
 		Connection conn = dbConnect.connect();
 		Statement stmt;
 		try{
 		 stmt = conn.createStatement();
 		 System.out.println("PRIMA");
-		 if (!(stmt.execute("UPDATE pagina " + " SET imgpubb='1' WHERE numpag='"+numeropagina+"'  AND titoloopera='"+nomeopera+ "'"))) {
+		 if (!(stmt.execute("UPDATE pagina " + " SET imgpubb='1',revisoreimg='"+username+"' WHERE numpag='"+numeropagina+"'  AND titoloopera='"+nomeopera+ "'"))) {
 		    	System.out.println(stmt);
 		    	return true;
 		    	 /*if (stmt.execute("UPDATE utenti" + " SET gruppo = '"+permesso+  "' WHERE username = '"+usernameutente+"'")){*/
