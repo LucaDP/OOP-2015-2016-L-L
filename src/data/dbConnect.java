@@ -19,7 +19,7 @@ public class dbConnect {
 		 try {
 			   
 			 db = DriverManager.getConnection(url,user,psw);
-			 System.out.println("CONNESSO"); 
+			 
 			 
 			 
 			} catch (SQLException ex) {
