@@ -23,7 +23,6 @@ import java.awt.event.ActionEvent;
 public class Opera extends JFrame {
 	
 	private JPanel contentPane;
-	public JTextPane tei;
 	public JLabel currpage;
 	final JLabel label_1 = new JLabel("/");
 	public JLabel totpage;
@@ -38,12 +37,17 @@ public class Opera extends JFrame {
 	public JButton ConfermaTei ;
 	public JButton RifiutaTei;
 	public JButton RevisioneTei; 
+	private JLabel lblInfoTei;
+	private JLabel lblInfoImg;
+	private JScrollPane scrollPane_1;
+	private JScrollPane scrollPane_2;
+	public JTextPane tei;
 
 	public Opera(OperaGen a, String permesso, String username) {
 		super(a.toString());
 		Opera Gui=this;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 1050, 650);
+		setBounds(100, 100, 1050, 700);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setResizable(false);
@@ -158,72 +162,98 @@ public class Opera extends JFrame {
 		img = new JLabel("");
 		
 		JScrollPane scrollPane = new JScrollPane();
+		
+		lblInfoTei = new JLabel("INFO TEI");
+		
+		lblInfoImg = new JLabel("INFO IMG");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(img, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(RevisioneImg, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(ConfermaImg)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(RifiutaImg)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(UploadImg)
-							.addGap(18)
-							.addComponent(prev)))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(currpage)
-					.addGap(10)
-					.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 12, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(totpage)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(next)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addContainerGap()
+									.addComponent(RevisioneImg, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(ConfermaImg)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(RifiutaImg)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(UploadImg)
+									.addGap(18)
+									.addComponent(prev))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGap(10)
+									.addComponent(img, GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE)))
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(EditTei)
+							.addComponent(currpage)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 12, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(totpage)
+							.addGap(10))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblInfoImg)))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblInfoTei)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(next)
 							.addGap(10)
+							.addComponent(EditTei)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(ConfermaTei)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(RifiutaTei)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(RevisioneTei))
 						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 441, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(62, Short.MAX_VALUE))
+					.addContainerGap(68, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
-						.addComponent(img, GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE))
 					.addGap(18)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(RevisioneImg)
-						.addComponent(RifiutaImg)
-						.addComponent(UploadImg)
-						.addComponent(currpage)
-						.addComponent(totpage)
-						.addComponent(next)
-						.addComponent(EditTei)
-						.addComponent(ConfermaImg)
-						.addComponent(prev)
-						.addComponent(label_1)
-						.addComponent(RifiutaTei)
-						.addComponent(RevisioneTei)
-						.addComponent(ConfermaTei)))
+						.addComponent(lblInfoTei)
+						.addComponent(lblInfoImg))
+					.addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+						.addComponent(scrollPane)
+						.addComponent(img, GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(18)
+							.addComponent(currpage))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(RevisioneImg)
+								.addComponent(ConfermaImg)
+								.addComponent(RifiutaImg)
+								.addComponent(UploadImg)
+								.addComponent(prev)
+								.addComponent(label_1)
+								.addComponent(totpage)
+								.addComponent(next)
+								.addComponent(EditTei)
+								.addComponent(ConfermaTei)
+								.addComponent(RifiutaTei)
+								.addComponent(RevisioneTei))))
+					.addContainerGap())
 		);
 		
+		scrollPane_1 = new JScrollPane();
+		scrollPane.setViewportView(scrollPane_1);
+		
+		scrollPane_2 = new JScrollPane();
+		scrollPane_1.setRowHeaderView(scrollPane_2);
+		
 		tei = new JTextPane();
-		tei.setContentType("text/html");
-		tei.setEditable(false);
-		scrollPane.setViewportView(tei);
+		scrollPane_1.setViewportView(tei);
 		contentPane.setLayout(gl_contentPane);
 		
 		EditTei.setEnabled(false);
@@ -236,5 +266,4 @@ public class Opera extends JFrame {
 		RevisioneTei.setEnabled(false);
 		
 	}
-
 }
