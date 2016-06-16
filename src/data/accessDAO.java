@@ -39,7 +39,7 @@ public class accessDAO implements authDAO {
 	}
 	/***********************************************************************************/
 	
-	public Boolean signin(String username, String password, String email) throws Exception{ /**/
+	public Boolean signin(String username, String password, String email) throws Exception{
 		Connection conn = dbConnect.connect();
 		Statement stmt;
 		try {
@@ -97,10 +97,8 @@ public class accessDAO implements authDAO {
 		return user;	
 		
 	}
-	
-	
-	
-	public Boolean signin(String nomeoperatore, String password, String email, String ruolo) throws Exception{
+	/**********************************************************************************************/
+	public Boolean creareoperatore(String nomeoperatore, String password, String email, String ruolo) throws Exception{
 		Connection conn = dbConnect.connect();
 		Statement stmt;
 		 

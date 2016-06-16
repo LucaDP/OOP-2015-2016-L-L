@@ -1,6 +1,6 @@
 package data;
 
-import java.awt.Image;
+
 import java.awt.image.BufferedImage;
 
 public class Immagine {
@@ -25,9 +25,7 @@ public void setPagina(BufferedImage pagina) {
 	this.pagina = pagina;
 }
 
-public String toString() {
-	return "Immagine [acquisitore=" + acquisitore + ", revisore=" + revisore + ", pubblicata=" + pubblicata + "]";
-}
+
 public String getAcquisitore() {
 	return acquisitore;
 }
@@ -45,6 +43,11 @@ public Boolean getPubblicata() {
 }
 public void setPubblicata(Boolean pubblicata) {
 	this.pubblicata = pubblicata;
+}
+@Override
+public String toString() {
+	return "Immagine acquisita da: " + acquisitore + ", revisionata da: " + revisore;
+			
 }
 
 }

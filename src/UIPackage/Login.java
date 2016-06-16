@@ -4,9 +4,7 @@
 package UIPackage;
 
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.EventQueue;
+
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -24,7 +22,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 
 import javax.swing.JPasswordField;
-import javax.swing.JOptionPane;
+
 
 /**
  * 

@@ -48,7 +48,7 @@ public class OperaGen {
 	}
 	
 	public String toString(){
-		return this.autore + this.epoca + this.nomeOpera;
+		return  this.nomeOpera + this.autore + this.epoca;
 		
 	}
 

@@ -7,7 +7,7 @@ import UIPackage.BackOffice;
 import UIPackage.Login;
 import UIPackage.Opera;
 import UIPackage.Ricerca;
-import data.OperaComp;
+
 import data.OperaGen;
 import engine.accessManager;
 import engine.TitleManager;
@@ -126,10 +126,12 @@ public class ViewListener {
    }
 	
    public void nextPage(Opera Frame, OperaGen a, String permesso, String username){
-	   TitleManager.showNext(a, Frame, permesso, username); 
+	   TitleManager b=TitleManager.getInstance();
+	   b.showNext(a, Frame, permesso, username); 
    }
    public void prevPage(Opera Frame, OperaGen a, String permesso, String username){
-	   TitleManager.showPrev(a, Frame, permesso, username); 
+	   TitleManager b=TitleManager.getInstance();
+	   b.showPrev(a, Frame, permesso, username); 
    }
    
    public void revisioneTei(Opera Frame, OperaGen a, String permesso, String username){
@@ -156,6 +158,7 @@ public class ViewListener {
 	   TitleManager b=TitleManager.getInstance();
 	   b.uploadImg(Frame, a, permesso, username);
    }
+   
    public void revisioneImg(Opera Frame, OperaGen a, String permesso, String username){
 	   TitleManager b= TitleManager.getInstance();
 	   b.abilitaRevisioneImg(Frame, a, permesso ,username);
@@ -169,6 +172,4 @@ public class ViewListener {
 	   b.pubblicaImg(Frame, a, permesso, username);
 	   
    }
-
 }
-

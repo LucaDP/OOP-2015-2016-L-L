@@ -8,9 +8,9 @@ import java.sql.Connection;
 
 public class dbConnect {
 	
-	final static String url = "jdbc:mysql://127.0.0.1:3306/digitallibrary1?useSSL=false";
-	final static String user = "root";
-	final static String psw = "";
+	protected static String url = "jdbc:mysql://127.0.0.1:3306/digitallibrary1?useSSL=false";
+	protected static String user = "root";
+	protected static String psw = "";
 	
 	
 	public static Connection db;
@@ -19,7 +19,7 @@ public class dbConnect {
 		 try {
 			   
 			 db = DriverManager.getConnection(url,user,psw);
-			 
+			  
 			 
 			 
 			} catch (SQLException ex) {

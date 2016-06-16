@@ -1,7 +1,6 @@
 package data;
 
-import java.awt.Image;
-import java.awt.image.BufferedImage;
+
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -51,19 +50,16 @@ public class operaDAO implements titleDAO<OperaGen>{
 	
 	
 	public Boolean creareopera(String nomeopera, String autore, String epoca) throws Exception{
-		Connection conn= dbConnect.connect();
-		PreparedStatement pstmt;
-		ResultSet rs;
+		Connection conn = dbConnect.connect();
+		Statement stmt;
 		 int a=0;
 		try {
-		   
-			pstmt = (PreparedStatement)conn.prepareStatement("INSERT INTO opera (titolo, autore, epoca, pubblicato) VALUES(?, ?, ?, ?) ");
-			 pstmt.setString(1,nomeopera);
-			 pstmt.setString(2, autore);
-			 pstmt.setString(3, epoca);
-			 pstmt.setBoolean(4, false);
-			 pstmt.execute();
-		
+		    stmt = conn.createStatement();
+		    if (stmt.execute("INSERT INTO opera (titolo, autore, epoca, pubblicato) VALUES ('"+nomeopera+"','"+autore+"','"+epoca+"','"+a+"')")){
+		    	/***********ATTENZIONE****************/
+		    	JOptionPane.showMessageDialog (null, "opera inserita");
+		    	return true;
+		    }
 		}
 		catch (SQLException ex){
 		    // handle any errors
@@ -77,7 +73,7 @@ public class operaDAO implements titleDAO<OperaGen>{
 	public Boolean pubbopera(String nomeopera) throws Exception{
 		Connection conn = dbConnect.connect();
 		Statement stmt;
-		 int a=0;
+		 
 		try {
 		    stmt = conn.createStatement();
 		    if (stmt.execute("UPDATE opera"
@@ -97,8 +93,7 @@ public class operaDAO implements titleDAO<OperaGen>{
 		}
 		return false;
 	}	
-
-/**********************************************************************************************/	
+	
 	public Boolean pubbTei(int numeropagina, String nomeopera ) throws Exception{
 		Connection conn = dbConnect.connect();
 		Statement stmt;
@@ -119,8 +114,6 @@ public class operaDAO implements titleDAO<OperaGen>{
 		
 		
 	}
-
-/**********************************************************************************************/
 	
 	public Boolean uploadTei(int numeropagina, String nomeopera, String testo) throws Exception{
 		
@@ -162,11 +155,10 @@ public class operaDAO implements titleDAO<OperaGen>{
 			pstmt.setInt(2, numpag);
 			pstmt.execute();
 			rs=pstmt.getResultSet();
-			while(rs.next()){
-				id=rs.getInt("id");
 			
-			}
-			if(rs.isBeforeFirst()){
+			
+			if(!(rs.isBeforeFirst())){
+				//System.out.println("INSERISCO IMG");
 				 pstmt1 = (PreparedStatement)conn.prepareStatement("INSERT INTO pagina (titoloopera, numpag, img, acquisitore) VALUES(?, ?, ?, ?) ");
 				 pstmt1.setString(1,nomeopera);
 				 pstmt1.setInt(2, numpag);
@@ -184,22 +176,27 @@ public class operaDAO implements titleDAO<OperaGen>{
 				 pstmt2 = (PreparedStatement)conn.prepareStatement("INSERT INTO tei (idpagina) VALUES (?)");
 				 pstmt2.setInt(1, id);
 				 if(pstmt2.execute()){
-					 return true;
+					 return false;
 				 }
 				 else{
-					 System.out.println("PIPPO");
-					 return false;
+					// System.out.println("PIPPO");
+					 return true;
 				 }
 			}
 			else{
+				while(rs.next()){
+					id=rs.getInt("id");
+				
+				}
+				//System.out.println("UPDATE IMG");
 				pstmt = (PreparedStatement)conn.prepareStatement("UPDATE pagina SET img= ? WHERE id=?");
 				pstmt.setBlob(1, inputStream);
 				pstmt.setInt(2, id);
 				
 				if(pstmt.execute()){
-					return true;
-				}else{
 					return false;
+				}else{
+					return true;
 				}
 				 
 			}
@@ -212,11 +209,12 @@ public class operaDAO implements titleDAO<OperaGen>{
 		}
 	return false;
 	}
-
-/**********************************************************************************************/
-	public Boolean pubbImg(int numeropagina, String nomeopera,String username ) throws Exception{
+	
+	public Boolean pubbImg(int numeropagina, String nomeopera, String username ) throws Exception{
 		Connection conn = dbConnect.connect();
 		Statement stmt;
+		
+		
 		try{
 		 stmt = conn.createStatement();
 		 System.out.println("PRIMA");
@@ -233,9 +231,9 @@ public class operaDAO implements titleDAO<OperaGen>{
 			    System.out.println("VendorError: " + ex.getErrorCode());
 		}
 		return false;
-		
-		
 	}
+	
+	
 	
 }
 

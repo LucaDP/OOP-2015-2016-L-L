@@ -38,7 +38,6 @@ public void setRevisore(String revisore) {
 	this.revisore = revisore;
 }
 
-
 public Boolean getPubblicato() {
 	return pubblicato;
 }
@@ -47,8 +46,8 @@ public void setPubblicato(Boolean pubblicato) {
 }
 @Override
 public String toString() {
-	return "Trascrizione [testo=" + testo + ", trascrittore=" + trascrittore + ", revisore=" + revisore
-			+ ", pubblicato=" + pubblicato + "]";
+	return "Trascrizione trascritta da: " + trascrittore + ", revisionata da: " + revisore;
+			
 }
 
 }

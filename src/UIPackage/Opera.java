@@ -1,14 +1,13 @@
 package UIPackage;
 
 
-import java.awt.EventQueue;
+
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Listener.ViewListener;
-import data.OperaComp;
 import data.OperaGen;
 
 import javax.swing.GroupLayout;
@@ -40,27 +39,8 @@ public class Opera extends JFrame {
 	public JButton RifiutaTei;
 	public JButton RevisioneTei; 
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Opera frame = new Opera(null, null, null);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public Opera(OperaGen a, String permesso, String username) {
-		super("Opera");
+		super(a.toString());
 		Opera Gui=this;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1050, 650);
@@ -123,6 +103,7 @@ public class Opera extends JFrame {
 		next.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ViewListener b= ViewListener.getInstance();
+				
 				b.nextPage(Gui, a, permesso, username);
 				
 			}
@@ -148,7 +129,7 @@ public class Opera extends JFrame {
 				try {
 					c.confermaTei(Gui,a, permesso, username);
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				}
 			}

@@ -185,7 +185,7 @@ public class accessManager {
 		}
 		else{
 			 accessDAO c= new accessDAO();
-		     c.signin(nomeoperatore,password,email,ruolo);
+		     c.creareoperatore(nomeoperatore,password,email,ruolo);
 		     JOptionPane.showMessageDialog (null, "NUOVO OPERATORE NEL BIBLIOMANAGER");
 	
 	}

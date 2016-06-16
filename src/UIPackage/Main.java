@@ -3,8 +3,6 @@
  */
 package UIPackage;
 
-import data.OperaGen;
-import data.OperaComp;
 
 /**
  * 

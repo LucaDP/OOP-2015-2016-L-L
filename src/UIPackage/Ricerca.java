@@ -1,6 +1,5 @@
 package UIPackage;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -11,8 +10,7 @@ import Listener.ViewListener;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JScrollBar;
-import javax.swing.JSlider;
+
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -20,8 +18,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JOptionPane;
-import javax.swing.JTextPane;
+
 import javax.swing.JCheckBox;
 
 public class Ricerca extends JFrame {
@@ -54,7 +51,7 @@ public class Ricerca extends JFrame {
 	 * Create the frame.
 	 */
 	public Ricerca(String username, String permesso) {
-		super("Ricerca");
+		
 		Ricerca Gui = this;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

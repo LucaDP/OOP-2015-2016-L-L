@@ -25,11 +25,12 @@ public void setScan(Immagine scan) {
 public Trascrizione getTEI() {
 	return TEI;
 }
+
+public void setTei(Trascrizione TEI) {
+	this.TEI = TEI;
+}
 @Override
 public String toString() {
-	return "Page [numpag=" + numpag + ", img=" + img + ", TEI=" + TEI + "]";
-}
-public void setTEI(Trascrizione TEI) {
-	TEI = TEI;
+	return "Pagina numero: "+numpag+", "+img.toString()+" "+TEI.toString();
 }
 }

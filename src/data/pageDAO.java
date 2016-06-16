@@ -17,25 +17,16 @@ import com.mysql.jdbc.PreparedStatement;
 
 
 public class pageDAO implements pagesDAO {
-	
-	//deve prendere solo le pagine delle immagini non revisionate se boolean è true
-	//altrimenti deve prendere tutto
+
 	
 	public OperaGen selectPages(String opera) throws Exception{
-		System.out.println("INIZIOE");
+		
 		Connection conn= dbConnect.connect();
 		PreparedStatement stmt;
 		ResultSet rs;
 		
 		OperaGen a= null;
-		int count=0;
-		
-		/*OperaGen a;
-		 * se la query trova le pagine allora a= new OperaComp() e vado a riempire
-		 * altrimenti a= new OperaGen();
-		 * */
-		
-		
+		int count=0;	
 		try {
 			String sql="SELECT img, acquisitore, revisoreimg, trascrittore, revisoretei, numpag, imgpubb, teipubb, testo  from pagina LEFT JOIN tei ON pagina.id=tei.idpagina WHERE pagina.titoloopera=? ORDER BY numpag ASC";
 		    stmt = (PreparedStatement) conn.prepareStatement(sql);
@@ -55,14 +46,14 @@ public class pageDAO implements pagesDAO {
 			        	Immagine img =new Immagine(bufferedImage, rs.getString("acquisitore"), rs.getString("revisoreimg"), rs.getBoolean("imgpubb"));
 			        	Page k= new Page(count, img, tras);
 			        	pagine.add(k);
-			        	System.out.println("arrivato1");
+			        	
 			        }
 			        ((OperaComp)a).setPagTot(count);
 			        ((OperaComp)a).setPagine(pagine);
 			        
 					
 					   
-					    //riempio le info
+					    
 					if (stmt.execute("SELECT * FROM opera WHERE titolo='" + opera + "'")){
 						rs = stmt.getResultSet(); 
 						while(rs.next()){
@@ -72,13 +63,13 @@ public class pageDAO implements pagesDAO {
 						    a.setPubblicata(rs.getBoolean("pubblicato"));
 						    }    
 					}
-					System.out.println("ARRIVO QUI");
+					
 					return a;
 		    }
 		    else{
 		    	  
 		    		  a=new OperaGen(null, null, null, null);
-		    		  System.out.println("arrivato2");
+		    		
 		    		  if (stmt.execute("SELECT * FROM opera WHERE titolo='" + opera + "'")){
 					        rs = stmt.getResultSet(); 
 					        while(rs.next()){
@@ -86,14 +77,14 @@ public class pageDAO implements pagesDAO {
 					        	a.setEpoca(rs.getString("epoca"));
 					        	a.setNomeOpera(rs.getString("titolo"));
 					        	a.setPubblicata(rs.getBoolean("pubblicato"));
-					        	System.out.println("arrivato3");
+					        	//System.out.println("arrivato3");
 					        }
 		    		  }
 		    		  return a;
 		    }
 		}
 		catch (SQLException ex){
-		    // handle any errors
+		    
 		    System.out.println("SQLException: " + ex.getMessage());
 		    System.out.println("SQLState: " + ex.getSQLState());
 		    System.out.println("VendorError: " + ex.getErrorCode());
