@@ -22,7 +22,7 @@ import java.awt.event.ActionEvent;
 
 public class Opera extends JFrame {
 	
-	private JPanel contentPane;
+	public JPanel contentPane;
 	public JLabel currpage;
 	final JLabel label_1 = new JLabel("/");
 	public JLabel totpage;
@@ -39,10 +39,8 @@ public class Opera extends JFrame {
 	public JButton RevisioneTei; 
 	private JLabel lblInfoTei;
 	private JLabel lblInfoImg;
-	private JScrollPane scrollPane_1;
-	private JScrollPane scrollPane_2;
 	public JTextPane tei;
-
+	 
 	public Opera(OperaGen a, String permesso, String username) {
 		super(a.toString());
 		Opera Gui=this;
@@ -246,14 +244,14 @@ public class Opera extends JFrame {
 					.addContainerGap())
 		);
 		
-		scrollPane_1 = new JScrollPane();
-		scrollPane.setViewportView(scrollPane_1);
+		JTextPane textPane = new JTextPane();
+		scrollPane.setViewportView(textPane);
 		
-		scrollPane_2 = new JScrollPane();
-		scrollPane_1.setRowHeaderView(scrollPane_2);
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane.setRowHeaderView(scrollPane_1);
 		
-		tei = new JTextPane();
-		scrollPane_1.setViewportView(tei);
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane.setColumnHeaderView(scrollPane_2);
 		contentPane.setLayout(gl_contentPane);
 		
 		EditTei.setEnabled(false);
