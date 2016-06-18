@@ -8,14 +8,14 @@ import java.sql.Connection;
 
 public class dbConnect {
 	
-	protected static String url = "jdbc:mysql://127.0.0.1:3306/digitallibrary1?useSSL=false";
-	protected static String user = "root";
-	protected static String psw = "";
+	private static String url = "jdbc:mysql://127.0.0.1:3306/digitallibrary1?useSSL=false";
+	private static String user = "root";
+	private static String psw = "";
 	
 	
-	public static Connection db;
+	private static Connection db;
 	
-	 public static Connection connect() throws Exception{
+	public static Connection connect(){
 		 try {
 			   
 			 db = DriverManager.getConnection(url,user,psw);

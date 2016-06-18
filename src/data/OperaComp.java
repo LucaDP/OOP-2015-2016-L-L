@@ -30,7 +30,7 @@ public class OperaComp extends OperaGen {
 
 	@Override
 	public String toString() {
-		return super.toString() + "Numero di pagine: "+pagTot;
+		return super.toString() + "   Numero di pagine: "+pagTot;
 	}
 	
 
