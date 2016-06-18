@@ -22,5 +22,5 @@
 ###Contenuto
 
 ####doc: Questa directory conterrà i documenti di design del progetto
-####javadoc: Questa directory conterrà il codice javadoc del progetto
+####javadoc: Questa directory conterrà il javadoc del progetto
 ####src: Questa directory conterrà il codice sorgente del progetto
