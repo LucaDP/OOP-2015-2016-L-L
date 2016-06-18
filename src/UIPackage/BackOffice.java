@@ -1,16 +1,13 @@
 package UIPackage;
 
 
-import java.awt.EventQueue;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import Listener.ViewListener;
-
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -26,45 +23,27 @@ public class BackOffice extends JFrame {
 
 	public JPanel contentPane;
 	public JTextField usernamepromuovere;
-	public JTextField operatorname; /* campo per operator name*/
-	public JPasswordField passwordoperatore; /* campo password per la creazione di un operatore*/
-	public JTextField textField_2   ;/*campo titolo opera*/
-	public JTextField textField_3; /*campo autore opera*/
-	public JTextField textField_4; /*campo epoca opera*/
-	public JTextField textField_5; /*campo per il nome opera da pubblicare*/
-	public JTextField textField_6;
-	public JLabel  NomeOpera;
-	public JLabel NomeOpera_1;
-	public JLabel Autore;
-	public JLabel Epoca;
-	public JLabel lblRuolo;/* campo per decidere il ruolo dell'operatore*/
-	public JComboBox ruolo;/* RUOLO  da dare all'operatore*/
-	public JComboBox comboBox;
-	public JComboBox comboBox_2;
-	public JButton btnApplica;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					BackOffice frame = new BackOffice();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+	public JTextField operatorname; 
+	public JPasswordField passwordoperatore;
+	public JTextField nomeopera   ;
+	public JTextField autore; 
+	public JTextField epoca; 
+	public JTextField nomeoperdaapubb; 
+	private JLabel  NomeOpera;
+	private JLabel NomeOpera_1;
+	private JLabel Autore;
+	private JLabel Epoca;
+	private JLabel lblRuolo;
+	public JComboBox ruolo;
+	public JComboBox ruolo1;
+	public JComboBox elencooperedapubb;
+	private JButton btnApplica;
+	public JTextField Email;
+	
 	public BackOffice() {
 	    BackOffice Gui = this;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 700, 445);
+		setBounds(100, 100, 723, 455);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -78,12 +57,12 @@ public class BackOffice extends JFrame {
 		usernamepromuovere = new JTextField();
 		usernamepromuovere.setColumns(10);
 		
-		 comboBox = new JComboBox();
-		 comboBox.addItem("ua");
-		 comboBox.addItem("rt");
-		 comboBox.addItem("tr");
-		 comboBox.addItem("ri");
-		 comboBox.addItem("ac");
+		ruolo1 = new JComboBox();
+		ruolo1.addItem("ua");
+		 ruolo1.addItem("rt");
+		 ruolo1.addItem("tr");
+		 ruolo1.addItem("ri");
+		 ruolo1.addItem("ac");
 		 
 		 JLabel lblPermesso = new JLabel("Permesso");
 		
@@ -118,20 +97,20 @@ public class BackOffice extends JFrame {
 		 ruolo.addItem("ac");
 		 lblRuolo = new JLabel("Ruolo");/*RUOLO*/
 		
-		JLabel lblOperatorname = new JLabel("Operatorname"); 
+		JLabel lblOperatorname = new JLabel("Username Operatore"); 
 		
 		 NomeOpera = new JLabel("Nome opera");
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
+		nomeopera = new JTextField();
+		nomeopera.setColumns(30);
 		
 		JLabel lblCreaOpera = new JLabel("Crea Opera:");
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
+		autore = new JTextField();
+		autore.setColumns(30);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
+		epoca = new JTextField();
+		epoca.setColumns(10);
 		
 		Autore = new JLabel("Autore");
 		
@@ -172,8 +151,8 @@ public class BackOffice extends JFrame {
 		
 		 NomeOpera_1 = new JLabel("Nome opera");
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
+		 nomeoperdaapubb = new JTextField();
+		 nomeoperdaapubb.setColumns(10);
 		
 		JButton btnCerca = new JButton("Cerca");
 		btnCerca.addActionListener(new ActionListener() {
@@ -187,7 +166,7 @@ public class BackOffice extends JFrame {
 				}	
 			}
 		});
-		 comboBox_2 = new JComboBox();
+		elencooperedapubb = new JComboBox();
 		 
 		JButton btnPubblica = new JButton("Pubblica");
 		btnPubblica.addActionListener(new ActionListener() {
@@ -204,10 +183,10 @@ public class BackOffice extends JFrame {
 		});
 		JList list = new JList();
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
+		Email = new JTextField();
+		Email.setColumns(10);
 		
-		JLabel lblEmail = new JLabel("Email");
+		JLabel lblEmailopzionale = new JLabel("Email(Opzionale)");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -221,62 +200,58 @@ public class BackOffice extends JFrame {
 						.addComponent(lblCreaOpera, Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(NomeOpera)
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+											.addComponent(usernamepromuovere, Alignment.LEADING)
+											.addComponent(operatorname, Alignment.LEADING)
+											.addComponent(nomeoperdaapubb, Alignment.LEADING)
+											.addComponent(nomeopera, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE))
 										.addComponent(lblUsername)
-										.addComponent(lblOperatorname)
-										.addComponent(operatorname, GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-										.addComponent(textField_2, GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-										.addComponent(usernamepromuovere, GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-										.addComponent(textField_5, GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE))
-									.addPreferredGap(ComponentPlacement.RELATED))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(NomeOpera)
-									.addGap(112)))
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblPermesso)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblOperatorname))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(lblPermesso)
 										.addGroup(gl_contentPane.createSequentialGroup()
+											.addComponent(ruolo1, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(btnApplica))
+										.addGroup(gl_contentPane.createSequentialGroup()
+											.addComponent(btnCerca)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(elencooperedapubb, GroupLayout.PREFERRED_SIZE, 212, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(btnPubblica))
+										.addGroup(gl_contentPane.createSequentialGroup()
+											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+												.addComponent(autore, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)
+												.addComponent(Autore))
+											.addGap(18)
+											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+												.addComponent(Epoca)
+												.addGroup(gl_contentPane.createSequentialGroup()
+													.addComponent(epoca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+													.addGap(18)
+													.addComponent(btnCrea))))
+										.addGroup(gl_contentPane.createSequentialGroup()
+											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+												.addComponent(passwordoperatore, GroupLayout.PREFERRED_SIZE, 178, GroupLayout.PREFERRED_SIZE)
+												.addComponent(lblPassword))
 											.addPreferredGap(ComponentPlacement.RELATED)
 											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-												.addGroup(gl_contentPane.createSequentialGroup()
-													.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-														.addComponent(textField_3, Alignment.LEADING)
-														.addComponent(comboBox, Alignment.LEADING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-														.addComponent(passwordoperatore, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 172, GroupLayout.PREFERRED_SIZE))
-													.addPreferredGap(ComponentPlacement.UNRELATED)
-													.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-														.addComponent(Epoca)
-														.addGroup(gl_contentPane.createSequentialGroup()
-															.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-															.addPreferredGap(ComponentPlacement.UNRELATED)
-															.addComponent(btnCrea))
-														.addGroup(gl_contentPane.createSequentialGroup()
-															.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-																.addGroup(gl_contentPane.createSequentialGroup()
-																	.addComponent(btnApplica)
-																	.addGap(119))
-																.addGroup(gl_contentPane.createSequentialGroup()
-																	.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-																		.addComponent(lblEmail)
-																		.addComponent(textField_6, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE))
-																	.addGap(9)
-																	.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-																		.addComponent(lblRuolo)
-																		.addComponent(ruolo, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE))
-																	.addGap(18)))
-															.addComponent(list, GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE))))
-												.addGroup(gl_contentPane.createSequentialGroup()
-													.addComponent(btnCerca)
-													.addPreferredGap(ComponentPlacement.UNRELATED)
-													.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, 212, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.UNRELATED)
-													.addComponent(btnPubblica))))
-										.addComponent(Autore))
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(btnCrea_1))
-								.addComponent(lblPassword)))
+												.addComponent(lblEmailopzionale)
+												.addComponent(Email))))
+									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(ruolo, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(btnCrea_1)
+									.addGap(187)
+									.addComponent(list, GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lblRuolo)))
 						.addComponent(lblPubblicazioneOpera, Alignment.LEADING)
 						.addComponent(NomeOpera_1, Alignment.LEADING))
 					.addContainerGap())
@@ -295,7 +270,7 @@ public class BackOffice extends JFrame {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(usernamepromuovere, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(ruolo1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnApplica))
 					.addGap(8)
 					.addComponent(lblCreaOperatore)
@@ -304,16 +279,16 @@ public class BackOffice extends JFrame {
 						.addComponent(lblOperatorname)
 						.addComponent(lblPassword)
 						.addComponent(lblRuolo)
-						.addComponent(lblEmail))
+						.addComponent(lblEmailopzionale))
 					.addGap(4)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(operatorname, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(list, GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)
 						.addComponent(passwordoperatore, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnCrea_1)
-						.addComponent(list, GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)
 						.addComponent(ruolo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(Email, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(lblGestioneOpera)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(lblCreaOpera)
@@ -324,9 +299,9 @@ public class BackOffice extends JFrame {
 						.addComponent(Epoca))
 					.addGap(7)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(nomeopera, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(autore, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(epoca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnCrea))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(lblPubblicazioneOpera)
@@ -334,11 +309,11 @@ public class BackOffice extends JFrame {
 					.addComponent(NomeOpera_1)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField_5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(nomeoperdaapubb, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnCerca)
-						.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(elencooperedapubb, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnPubblica))
-					.addContainerGap(64, Short.MAX_VALUE))
+					.addContainerGap(81, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}

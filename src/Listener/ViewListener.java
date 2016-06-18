@@ -4,126 +4,120 @@
 package Listener;
 
 import UIPackage.BackOffice;
+import UIPackage.GestioneProfilo;
 import UIPackage.Login;
 import UIPackage.Opera;
 import UIPackage.Ricerca;
 
 import data.OperaGen;
-import engine.accessManager;
-import engine.TitleManager;
+import engine.*;
 
-/**
- * 
- * @author Luca
- *
- */
+
+
 public class ViewListener {
 	public static ViewListener instance;
-	
-	private ViewListener(){
+
+	public ViewListener(){
 		
 	}
 	
-	/**
-	 * se è stato già istanziato un oggetto ViewListener si utilizza quello, altrimenti si
-	 * istanzia un nuovo oggetto ViewListener
-	 * @return ViewListener instance
-	 */
 	public static ViewListener getInstance(){
 		if(instance==null){
 			instance= new ViewListener();
 		}
 		return instance;
 	}
-	
-	/**
-	 * metodo che richiama l'istanza di Manager al fine di eseguire la procedura di login
-	 * @param username
-	 * @param password
-	 * @param finestra
-	 * @return void
-	 * @throws Exception 
-	 */
+	/************************************************TEXT INPUT***********************************************************************/
 	public void login(Login finestra ) throws Exception{
-		
-		accessManager a=accessManager.getInstance();
-		a.loginManager(finestra);
-		
+		InputFormController controller=new InputFormController();
+		controller.LogInInput(finestra,finestra.textField.getText(),finestra.passwordField.getText());
+	}
+
+	public void signin(Login finestra) throws Exception{
+		InputFormController controller=new InputFormController();
+		controller.SignInInput(finestra, finestra.textField_1.getText(), finestra.passwordField_1.getText(),finestra.textField_2.getText());
 	}
 	
-	/**
-	 * metodo che richiama l'istanza di Manager al fine di eseguire la procedura di registrazione
-	 * @param username
-	 * @param password
-	 * @param email
-	 * @param finestra
-	 * @return void
-	 * @throws Exception 
-	 */
-	public void signin(Login finestra) throws Exception{
-		accessManager a=accessManager.getInstance();
-		a.signinManager(finestra);
-		
-	}
-	/**
-	 * Metodo di accesso libero al sistema
-	 * @param finestra
-	 * @return void
-	 */
-	public void freeAccess(Login finestra){
-		accessManager a=accessManager.getInstance();
-		a.freeLogin(finestra);
-		
-	}
-	/**
-	 * Metodo per indicare al controller di ricercare un titolo
-	 * @param ricerca
-	 * @param finestra
-	 * @return void
-	 * @throws Exception 
-	 */
-	 
 	public void search(Ricerca finestra) throws Exception{
-		TitleManager a= TitleManager.getInstance();
-		a.searchOpera(finestra);
+		InputFormController controller=new InputFormController();
+		controller.RicercaUtentiInputOutput(finestra, finestra.textField.getText(), !(finestra.operenonpubb.isSelected()));
+	}
+	
+	/******************************BACKOFFICE************************************************+**/
+	
+	public void viewAdmin(Ricerca finestra, String username, String permesso) throws Exception{
+		AdminActionManager controller= new AdminActionManager();
+		controller.backOffice();	
+	}
+	public void creazioneoperatore(BackOffice finestra)throws Exception{
+		   InputFormController controller= new InputFormController();
+		   controller.CreaOperatoreInput(finestra.operatorname.getText(), finestra.passwordoperatore.getText(), finestra.Email.getText(), (String)finestra.ruolo.getSelectedItem());
+	}
+
+	public void promozioneutenza(BackOffice finestra)throws Exception{
+		   InputFormController controller= new InputFormController();
+		   controller.PromozioneOperatoreInput(finestra.usernamepromuovere.getText(), (String)finestra.ruolo1.getSelectedItem());
+	}
+	public void searchBO(BackOffice finestra) throws Exception{
+		InputFormController controller=new InputFormController();
+		controller.RicercaAdminInputOutput(finestra, finestra.nomeoperdaapubb.getText());
+	}
+	
+	public void creazioneopera(BackOffice finestra)throws Exception{
+		InputFormController controller= new InputFormController();
+		controller.CreaOperaInput(finestra.nomeopera.getText(), finestra.autore.getText(), finestra.epoca.getText());
+	}
+	 
+	public void pubblicareopera(BackOffice finestra)throws Exception{
+		InputFormController controller= new InputFormController();
+		controller.PubbOperaInput((String)finestra.elencooperedapubb.getSelectedItem());
+	}
+	/************************************************/
+	
+	/**********************GESTIONE PROFILO**********/
+	public void gestioneProfilo(String username){
+		UserActionManager controller= new UserActionManager();
+		controller.apriGestioneProfilo(username);
+	}
+	public void cambiaEmail(GestioneProfilo finestra, String username){
+		InputFormController controller= new InputFormController();
+		controller.cambiaEmailInput(username, finestra.nuovaEmail.getText());
+		
+	}
+	public void cambiaPassword(GestioneProfilo finestra, String username){
+		InputFormController controller= new InputFormController();
+		controller.cambiaPasswordInput(username, finestra.vecchiaPwd.getText(), finestra.nuovaPwd.getText());
+	}
+	
+	
+	
+	/******************FINESTRA ADMIN********************************/
+	
+	
+	/******ACCESSO LIBERO*****/
+	public void freeAccess(Login finestra){
+		UserActionManager controller=new UserActionManager();
+		controller.AccessoUtenteBase();
+		finestra.dispose();
 	}
 	
 	public void view(Ricerca finestra, String username, String permesso) throws Exception{
 		TitleManager a= TitleManager.getInstance();
 		a.viewOpera(finestra, permesso, username);
-		
 	}
 	
-	public void searchBO(BackOffice finestra) throws Exception{
-		TitleManager a= TitleManager.getInstance();
-		a.searchOperaBO(finestra);
-	}
 	
-	public void viewAdmin(Ricerca finestra, String username, String permesso) throws Exception{
-		TitleManager b= TitleManager.getInstance();
-		b.viewAdmin(finestra, username, permesso);
-		
-	}
+	 
+	
+	
+	
+	
+	
+	
+	
+	
 
-	
-   public void creazioneopera(BackOffice finestra)throws Exception{
-	   TitleManager b= TitleManager.getInstance();
-	   b.createopera(finestra);
-   }
-   public void creazioneoperatore(BackOffice finestra)throws Exception{
-	   accessManager b= accessManager.getInstance();
-	   b.createoperatore(finestra);
-   }
-/**********************************************************************************************/
-   public void promozioneutenza(BackOffice finestra)throws Exception{
-	   accessManager b= accessManager.getInstance();
-	   b.promoutenza(finestra);
-   }
-/**********************************************************************************************/
-   public void pubblicareopera(BackOffice finestra)throws Exception{
-	   TitleManager b= TitleManager.getInstance();
-	   b.pubbopera(finestra);
-   }
+   /**PAGINA VISUALIZZAZIONE OPERA** TITLE MANAGER Gestione operazioni su opera visualizzata*/
 	
    public void nextPage(Opera Frame, OperaGen a, String permesso, String username){
 	   TitleManager b=TitleManager.getInstance();
@@ -136,14 +130,13 @@ public class ViewListener {
    
    public void revisioneTei(Opera Frame, OperaGen a, String permesso, String username){
 	   TitleManager b= TitleManager.getInstance();
-	   b.abilitaRevisione(Frame, a, permesso ,username);
+	   b.abilitaRevisioneTei(Frame, a, permesso ,username);
    }
    public void confermaTei(Opera Frame, OperaGen a, String permesso, String username) throws Exception{
 	   TitleManager b= TitleManager.getInstance();
-	   b.pubblicaTei(Frame, a, permesso, username);
-	   
+	   b.pubblicaTei(Frame, a, permesso, username);  
    }
-   
+  
    public void rifiutaTei(Opera Frame, OperaGen a, String permesso, String username){
 	   TitleManager b= TitleManager.getInstance();
 	   b.respingiTei(Frame, a, permesso, username);

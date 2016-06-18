@@ -1,16 +1,16 @@
 package UIPackage;
 
 
-import java.awt.EventQueue;
+
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.html.HTMLEditorKit;
+import javax.swing.text.html.StyleSheet;
 
 import Listener.ViewListener;
-import data.OperaComp;
 import data.OperaGen;
-
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -40,27 +40,14 @@ public class Opera extends JFrame {
 	public JButton RifiutaTei;
 	public JButton RevisioneTei; 
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Opera frame = new Opera(null, null, null);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public Opera(OperaGen a, String permesso, String username) {
-		super("Opera");
+		super(a.toString());
+		/*
+		StyleSheet ss = ((HTMLEditorKit)tei.getEditorKit()).getStyleSheet();
+		ss.addRule("p#capitolo {text-align:center; font: serif, font-size:40px}");
+		HTMLEditorKit kit = (HTMLEditorKit)tei.getEditorKit();
+		kit.setStyleSheet(ss);
+		tei.setEditorKit(kit);*/
 		Opera Gui=this;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1050, 650);
@@ -72,12 +59,36 @@ public class Opera extends JFrame {
 		RevisioneImg = new JButton("Revis. Img");
 		RevisioneImg.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ViewListener c = ViewListener.getInstance();
+				c.revisioneImg(Gui, a, permesso, username);
 			}
 		});
 		
 		ConfermaImg = new JButton("Conferma Img");
+		ConfermaImg.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ViewListener c = ViewListener.getInstance();
+				try {
+					c.confermaImg(Gui,a, permesso, username);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		
 		RifiutaImg = new JButton("Rifiuta Img");
+		RifiutaImg.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ViewListener c = ViewListener.getInstance();
+				try {
+					c.rifiutaImg(Gui,a, permesso, username);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		
 		UploadImg = new JButton("Upload Img");
 		UploadImg.addActionListener(new ActionListener() {
@@ -99,6 +110,7 @@ public class Opera extends JFrame {
 		next.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ViewListener b= ViewListener.getInstance();
+				
 				b.nextPage(Gui, a, permesso, username);
 				
 			}
@@ -124,7 +136,7 @@ public class Opera extends JFrame {
 				try {
 					c.confermaTei(Gui,a, permesso, username);
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				}
 			}

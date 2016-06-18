@@ -1,6 +1,3 @@
-/**
- * UIPackage
- */
 package UIPackage;
 
 
@@ -20,15 +17,10 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
-
 import javax.swing.JPasswordField;
 
 
-/**
- * 
- * @author Luca
- *
- */
+
 public class Login extends JFrame {
 
 	private JPanel contentPane;
@@ -39,11 +31,6 @@ public class Login extends JFrame {
 	public JPasswordField passwordField_1;
 	
 
-
-
-	/**
-	 * Create the frame.
-	 */
 	public Login() {
 		Login Gui = this;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

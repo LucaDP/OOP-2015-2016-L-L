@@ -5,12 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import Listener.ViewListener;
-
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -18,7 +15,6 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
 import javax.swing.JCheckBox;
 
 public class Ricerca extends JFrame {
@@ -30,26 +26,9 @@ public class Ricerca extends JFrame {
 	public JButton btnConsulta;
 	public JLabel hellouser;
 	public JCheckBox operenonpubb;
+	public JButton btnProfilo;
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Ricerca frame = new Ricerca(null, null);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+	
 	public Ricerca(String username, String permesso) {
 		
 		Ricerca Gui = this;
@@ -117,6 +96,14 @@ public class Ricerca extends JFrame {
 		
 	operenonpubb = new JCheckBox("Cerca opere da completare");
 		
+		btnProfilo = new JButton("Profilo");
+		btnProfilo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ViewListener view= ViewListener.getInstance();
+				view.gestioneProfilo(username);
+			}
+		});
+		
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -142,7 +129,9 @@ public class Ricerca extends JFrame {
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 										.addGroup(gl_contentPane.createSequentialGroup()
 											.addComponent(btnAdmin)
-											.addPreferredGap(ComponentPlacement.RELATED, 175, Short.MAX_VALUE)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(btnProfilo)
+											.addPreferredGap(ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
 											.addComponent(btnConsulta))
 										.addGroup(gl_contentPane.createSequentialGroup()
 											.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
@@ -173,7 +162,8 @@ public class Ricerca extends JFrame {
 					.addPreferredGap(ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnConsulta)
-						.addComponent(btnAdmin))
+						.addComponent(btnAdmin)
+						.addComponent(btnProfilo))
 					.addContainerGap())
 		);
 		contentPane.setLayout(gl_contentPane);
