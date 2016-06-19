@@ -6,13 +6,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
-import GUI.BackOffice;
-import GUI.GestioneProfilo;
-import GUI.Login;
-import GUI.Ricerca;
+import Gui.BackOffice;
+
+import Gui.Login;
+import Gui.Ricerca;
 import data.OperaGen;
 /**
- * 
+ * Classe che gestisce gli input da form da parte dell'utenza e ne determina la correttezza
  * @author  loris
  *
  */

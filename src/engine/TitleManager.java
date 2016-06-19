@@ -18,7 +18,7 @@ import Gui.Opera;
 import Gui.Ricerca;
 import data.*;
 /**
- * 
+ * Classe che gestisce tutte le operazioni riguardanti l'opera 
  * @author Luca
  *
  */
@@ -367,16 +367,16 @@ public class TitleManager {
 	 * @param permesso permesso dell'utente
 	 * @param username username dell'utente
 	 */
-	public void pubblicaTei(Opera Frame, OperaGen a, String permesso, String username){
+	public void pubblicaTei(Opera Frame, OperaGen opera, String permesso, String username){
 		TeiDAO dao= new TrascrizioneDAO();
 		int i=Integer.parseInt(Frame.currpage.getText());
-		if(dao.pubbTei(i, a.getNomeOpera(), username)){
-			((OperaComp)a).getPagine().get(i-1).getTEI().setPubblicato(true);
+		if(dao.pubbTei(i, opera.getNomeOpera(), username)){
+			((OperaComp)opera).getPagine().get(i-1).getTEI().setPubblicato(true);
 			Frame.tei.setContentType("text/html");
 			Frame.ConfermaTei.setEnabled(false);
 			Frame.RifiutaTei.setEnabled(false);
 			JOptionPane.showMessageDialog (null, "TEI pubblicato");
-			TitleManager.getInstance().showOperaPage(a, Frame, i-1, permesso, username);
+			TitleManager.getInstance().showOperaPage(opera, Frame, i-1, permesso, username);
 		}
 		else{
 			JOptionPane.showMessageDialog (null, "TEI non pubblicato, riprova");

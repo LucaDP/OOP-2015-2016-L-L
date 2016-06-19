@@ -2,7 +2,7 @@ package engine;
 
 import javax.swing.JOptionPane;
 
-import GUI.BackOffice;
+import Gui.BackOffice;
 import data.OperaGenDAO;
 import data.TitoliDAO;
 
@@ -11,7 +11,7 @@ import data.UtenzaDAO;
 
 
 /**
- * 
+ * Classe che descrive leoperazioni che possono essere svolte dall'admin
  * @author loris
  *
  */

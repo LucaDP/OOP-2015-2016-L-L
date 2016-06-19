@@ -3,11 +3,11 @@
  */
 package Listener;
 
-import GUI.BackOffice;
-import GUI.GestioneProfilo;
-import GUI.Login;
-import GUI.Opera;
-import GUI.Ricerca;
+import Gui.BackOffice;
+import Gui.GestioneProfilo;
+import Gui.Login;
+import Gui.Opera;
+import Gui.Ricerca;
 import data.OperaGen;
 import engine.*;
 
@@ -33,7 +33,7 @@ public class ViewListener {
 		}
 		return instance;
 	}
-	/************************************************TEXT INPUT***********************************************************************/
+	
 	/**
 	 * 
 	 * @param finestra
@@ -62,7 +62,7 @@ public class ViewListener {
 		controller.RicercaUtentiInputOutput(finestra, finestra.textField.getText(), !(finestra.operenonpubb.isSelected()));
 	}
 	
-	/******************************BACKOFFICE************************************************+**/
+	
 	/**
 	 *  Metodo che passa all'inputform controller che si trova nell'engine parametri per la visione del bottone amministrazione
 	 * @param finestra
@@ -114,9 +114,7 @@ public class ViewListener {
 		InputFormController controller= new InputFormController();
 		controller.PubbOperaInput((String)finestra.elencooperedapubb.getSelectedItem());
 	}
-	/************************************************/
 	
-	/**********************GESTIONE PROFILO**********/
 	/**
 	 * Metodo che passa il valore dell'utente connesso nell'inputform controller che si trova nell'engine
 	 * @param username
@@ -146,14 +144,9 @@ public class ViewListener {
 	}
 	
 	
-	
-	/******************FINESTRA ADMIN********************************/
-	
-	
-	/******ACCESSO LIBERO*****/
 	/**
 	 * Metodo che passa la finestra di login nell'input form controller per l'accesso senza login
-	 * @param finestra
+	 * @param finestra oggetto login
 	 */
 	public void freeAccess(Login finestra){
 		UserActionManager controller=new UserActionManager();
@@ -161,71 +154,137 @@ public class ViewListener {
 		finestra.dispose();
 	}
 	
-	
-	
-	
-	 
-	
-	
-	
-	
-	
-	
-	
-	
-
-   /**PAGINA VISUALIZZAZIONE OPERA** TITLE MANAGER Gestione operazioni su opera visualizzata*/
+    /**
+     * Metodo passa la finestra di ricerca , username e permesso per passarlo al TitleManager
+     * @param finestra si intende l'intende l'interfaccia grafica della ricerca
+     * @param username Stringa che rappresenta l'username
+     * @param permesso Stringa che rappresenta il permesso 
+     */
 	public void view(Ricerca finestra, String username, String permesso){
 		TitleManager a= TitleManager.getInstance();
 		a.viewOpera(finestra, permesso, username);
 	}
-	
+   
+   /**
+    * Metodo che passa oggetti per poter andare avanti nella pagine
+    * @param Frame   interfaccia grafica dell'opera
+    * @param a       oggetto opera gen
+    * @param permesso  Stringa che rappresenta il permesso dell'utente
+    * @param username  Stringa che rappresenta l'username dell'utente
+    */
    public void nextPage(Opera Frame, OperaGen a, String permesso, String username){
 	   TitleManager b=TitleManager.getInstance();
 	   b.showNext(a, Frame, permesso, username); 
    }
+   /**
+    * Metodo che passa oggetti per poter andare indietro nella pagine
+    * @param Frame    interfaccia grafica dell'opera
+    * @param a        oggetto opera gen
+    * @param permesso Stringa che rappresenta il permesso dell'utente
+    * @param username Stringa che rappresenta l'username dell'utente
+    */
    public void prevPage(Opera Frame, OperaGen a, String permesso, String username){
 	   TitleManager b=TitleManager.getInstance();
 	   b.showPrev(a, Frame, permesso, username); 
    }
    
+   /**
+    * Metodo che permette di rivisionare il tei
+    * @param Frame      interfaccia grafica dell'opera
+    * @param a          oggetto opera gen
+    * @param permesso   Stringa che rappresenta il permesso dell'utente
+    * @param username   Stringa che rappresenta l'username dell'utente
+    */
    public void revisioneTei(Opera Frame, OperaGen a, String permesso, String username){
 	   TitleManager b= TitleManager.getInstance();
 	   b.abilitaRevisioneTei(Frame, a, permesso ,username);
    }
+   /**
+    * Metodo che conferma il tei
+    * @param Frame     interfaccia grafica dell'opera
+    * @param a         oggetto opera gen
+    * @param permesso  Stringa che rappresenta il permesso dell'utente
+    * @param username  Stringa che rappresenta l'username dell'utente
+    */
    public void confermaTei(Opera Frame, OperaGen a, String permesso, String username){
 	   TitleManager b= TitleManager.getInstance();
 	   b.pubblicaTei(Frame, a, permesso, username);  
    }
   
+   /**
+    * Metodo che rifiuta il tei
+    * @param Frame     interfaccia grafica dell'opera
+    * @param a         oggetto opera gen
+    * @param permesso  Stringa che rappresenta il permesso dell'utente
+    * @param username  Stringa che rappresenta l'username dell'utente
+    */
    public void rifiutaTei(Opera Frame, OperaGen a, String permesso, String username){
 	   TitleManager b= TitleManager.getInstance();
 	   b.respingiTei(Frame, a, permesso, username);
    }
    
+   /**
+    * Metodo che permette di modificare il tei
+    * @param Frame     interfaccia grafica dell'opera
+    * @param a         oggetto opera gen
+    * @param permesso  Stringa che rappresenta il permesso dell'utente
+    * @param username  Stringa che rappresenta l'username dell'utente
+    */
    public void editTei(Opera Frame, OperaGen a, String permesso, String username){
 	   TitleManager b= TitleManager.getInstance();
 	   b.modificaTei(Frame, a, permesso, username);
    }
    
+   /**
+    * Metodo che permette di uploadare l'immagine
+    * @param Frame     interfaccia grafica dell'opera
+    * @param a         oggetto opera gen
+    * @param permesso  Stringa che rappresenta il permesso dell'utente
+    * @param username  Stringa che rappresenta l'username dell'utente
+    */
    public void uploadImage(Opera Frame, OperaGen a, String permesso, String username){
 	   TitleManager b=TitleManager.getInstance();
 	   b.uploadImg(Frame, a, permesso, username);
    }
    
+   /**
+    * Metodo che permette di revisionare le immagini
+    * @param Frame     interfaccia grafica dell'opera
+    * @param a         oggetto opera gen
+    * @param permesso  Stringa che rappresenta il permesso dell'utente
+    * @param username  Stringa che rappresenta l'username dell'utente
+    */
    public void revisioneImg(Opera Frame, OperaGen a, String permesso, String username){
 	   TitleManager b= TitleManager.getInstance();
 	   b.abilitaRevisioneImg(Frame, a, permesso ,username);
    }
+   /**
+    * Metodo che permette di rifiutare le immagini
+    * @param Frame      interfaccia grafica dell'opera
+    * @param a          oggetto opera gen
+    * @param permesso   Stringa che rappresenta il permesso dell'utente
+    * @param username   Stringa che rappresenta l'username dell'utente
+    */
    public void rifiutaImg(Opera Frame, OperaGen a, String permesso, String username){
 	   TitleManager b= TitleManager.getInstance();
 	   b.respingiImg(Frame, a, permesso, username);
    }
+   /**
+    * Metodo che permette di confermare immagini
+    * @param Frame     interfaccia grafica dell'opera
+    * @param a         oggetto opera gen
+    * @param permesso  Stringa che rappresenta il permesso dell'utente
+    * @param username  Stringa che rappresenta l'username dell'utente
+    */
    public void confermaImg(Opera Frame, OperaGen a, String permesso, String username) {
 	   TitleManager b= TitleManager.getInstance();
 	   b.pubblicaImg(Frame, a, permesso, username);   
    }
    
+   /**
+    * Metodo che permette di vedere le anteprime delle scrittura tei
+    * @param Frame   interfaccia grafica dell'opera
+    */
    public void anteprima(Opera Frame){
 	   TitleManager controller= TitleManager.getInstance();
 	   controller.anteprimaTei(Frame);

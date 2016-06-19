@@ -1,7 +1,7 @@
 package data;
 
 /**
- * 
+ * Classe che rappresenta la Trascrizione 
  * @author  loris
  *
  */

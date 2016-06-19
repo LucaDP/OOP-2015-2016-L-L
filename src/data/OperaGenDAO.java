@@ -19,7 +19,7 @@ public class OperaGenDAO implements TitoliDAO{
 	 * Metodo che ritorna una lista di opere che corrispondono a una determianta ricerca
 	 * @param opera opera ricercata
 	 * @param pubblicata per determinare se prendere opere pubblicate o meno
-	 * @return ArrayList<OperaGen>
+	 * @return ArrayList
 	 */
 	public ArrayList<OperaGen> selectOpera(String opera, boolean pubblicata){
 		ArrayList<OperaGen> listaopere=new ArrayList<OperaGen>();

@@ -1,6 +1,6 @@
 package data;
 /**
- * 
+ * Classe che rappresenta gli utenti del sistema
  * @author loris
  *
  */

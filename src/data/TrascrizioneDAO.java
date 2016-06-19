@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 /**
- * 
+ * Classe che permette di effettuare le operazioni sul database per quanto riguarda le Trascrizioni
  * @author loris
  *
  */

@@ -25,7 +25,7 @@ public interface TitoliDAO{
 	 * firma del metodo per la selezione di opera/e
 	 * @param opera nome opera
 	 * @param pubblicata pubblicata si/no
-	 * @return ArrayList<OperaGen>
+	 * @return ArrayList
 	 */
 	public ArrayList<OperaGen> selectOpera(String opera, boolean pubblicata);
 }

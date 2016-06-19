@@ -39,7 +39,7 @@ public class OperaComp extends OperaGen {
 	}
 	/**
 	 * ritorna una collezione di pagine
-	 * @return ArrayList<Page>
+	 * @return ArrayList
 	 */
 	public ArrayList<Page> getPagine() {
 		return pagine;

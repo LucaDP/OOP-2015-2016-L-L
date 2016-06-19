@@ -1,18 +1,18 @@
 package data;
 /**
- * Interfaccia che definisce le firme dei metodi  
+ * Interfaccia che definisce le firme dei metodi per le operazioni sull' utenza
  * @author loris
  *
  */
 public interface UtenzaDAO {
 	/**
-	 * Firma del metodo che rappresenta l'accesso nel sistema
+	 * Firma del metodo per l'accesso nel sistema
 	 * @param username Stringa che rappresenta un username di un utente
 	 * @return         ritorna un utente
 	 */
 	Utente access(String username);
 	/**
-	 * Firma del metodo che verifica ha il compito di verifare alcune operazioni
+	 * Firma del metodo utilizzato per fare controlli sull'utenza
 	 * @param username Stringa che rappresenta l'username dell'utente
 	 * @return         booleano che ci permette di capire l'esito dell'operazione
 	 */

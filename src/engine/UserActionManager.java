@@ -3,7 +3,7 @@
  */
 package engine;
 
-import GUI.*;
+
 
 import java.util.ArrayList;
 
@@ -11,11 +11,11 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-import GUI.GestioneProfilo;
-import GUI.Ricerca;
+import Gui.GestioneProfilo;
+import Gui.Ricerca;
 import data.*;
 /**
- * 
+ * Classe che descrive le operazioni che possono essere svolte dagli utenti
  * @author  loris
  *
  */

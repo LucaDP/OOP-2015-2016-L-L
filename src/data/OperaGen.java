@@ -61,7 +61,7 @@ public class OperaGen {
 	}
 	/**
 	 * Metodo per settare il nome dell'opera
-	 * @param nomeOpera
+	 * @param nomeOpera nome dell'opera
 	 */
 	public void setNomeOpera(String nomeOpera) {
 		this.nomeOpera = nomeOpera;

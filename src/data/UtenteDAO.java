@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 
 
 /**
- *
+ *Classe che permette di effettuare operazioni sugli utenti nel database riguardanti 
  * @author loris
  *
  */
@@ -86,7 +86,7 @@ public class UtenteDAO implements UtenzaDAO {
 	/**
 	 * Metodo che tramite l'username ci permette di conoscere i dati di un utente dal suo username
 	 * @param username    Stringa che rappresenta l'username da esaminare
-	 * @return            Oggetto che contiene i dati di un utente
+	 * @return Utente      Oggetto che contiene i dati di un utente
 	 */
 	public Utente access(String username){
 		Utente user= new Utente(null,null,null,null);
@@ -124,11 +124,11 @@ public class UtenteDAO implements UtenzaDAO {
 	}
 	/**
 	 * Metodo che creare un utente collaboratore all'interno del database
-	 * @param nomeperatore Stringa che rappresenta il nome dell'operatore da dover creare
-	 * @param password     Stringa che rappresenta il password dell'operatore da dover creare
-	 * @param email        Stringa che rappresenta il email dell'operatore da dover creare
-	 * @param ruolo        Stringa che rappresenta il ruolo dell'operatore da dover creare
-	 * @return             booleano che ci permette di capire se l'operatore è statto creato o meno
+	 * @param nomeoperatore Stringa che rappresenta il nome dell'operatore 
+	 * @param password     Stringa che rappresenta il password dell'operatore 
+	 * @param email        Stringa che rappresenta il email dell'operatore
+	 * @param ruolo        Stringa che rappresenta il ruolo dell'operatore 
+	 * @return boolean     booleano che ci permette di capire se l'operatore è statto creato o meno
 	 */
 	public boolean creaOperatore(String nomeoperatore, String password, String email, String ruolo){
 		Connection conn = dbConnect.connect();
