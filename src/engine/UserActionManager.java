@@ -99,7 +99,7 @@ public class UserActionManager {
      * @param pubblicata booleano che differenzia le opere pubblicate o no
      * @return  rtorna un arraylist di opere
      */
-	public ArrayList<OperaGen> searchOpera(String Ricerca, Boolean pubblicata){
+	protected ArrayList<OperaGen> searchOpera(String Ricerca, Boolean pubblicata){
 			TitoliDAO b= new OperaGenDAO();
 			ArrayList<OperaGen> listaopere=b.selectOpera(Ricerca, pubblicata);
 			return listaopere;	
@@ -123,7 +123,7 @@ public class UserActionManager {
 		Frame.setVisible(true);
 	}
 	
-	public void cambioEmail(String username, String email){
+	protected void cambioEmail(String username, String email){
 		UtenzaDAO dao= new UtenteDAO();
 		if(dao.cambioemail(username, email)){
 			JOptionPane.showMessageDialog (null, "Email cambiata", "Title", JOptionPane.INFORMATION_MESSAGE);
@@ -132,7 +132,7 @@ public class UserActionManager {
 			JOptionPane.showMessageDialog (null, "Cambio email non riuscito, riprovare", "Title", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
-	public void cambioPwd(String username, String vpwd, String npwd){
+	protected void cambioPwd(String username, String vpwd, String npwd){
 		UtenzaDAO dao= new UtenteDAO();
 		if(dao.access(username).getPassword().equals(vpwd)){
 			if(dao.cambiopwd(username, npwd)){
