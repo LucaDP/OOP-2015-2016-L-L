@@ -1,6 +1,6 @@
-package UIPackage;
+package Gui;
 
-import java.awt.EventQueue;
+
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,6 +17,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JCheckBox;
 
+/**
+ * 
+ * @author Luca
+ *
+ */
+
 public class Ricerca extends JFrame {
 
 	public JPanel contentPane;
@@ -28,7 +34,11 @@ public class Ricerca extends JFrame {
 	public JCheckBox operenonpubb;
 	public JButton btnProfilo;
 	
-	
+	/**
+	 * Costruttore della finestra Ricerca
+	 * @param username  
+	 * @param permesso
+	 */
 	public Ricerca(String username, String permesso) {
 		
 		Ricerca Gui = this;
@@ -44,13 +54,9 @@ public class Ricerca extends JFrame {
 		JButton btnSearch = new JButton("Search");
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ViewListener a= ViewListener.getInstance();
-				try {
-					a.search(Gui);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}	
+				ViewListener view= ViewListener.getInstance();
+				view.search(Gui);
+					
 			}
 		});
 		
@@ -61,15 +67,8 @@ public class Ricerca extends JFrame {
 		btnConsulta = new JButton("Consulta");
 		btnConsulta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			
-				ViewListener a= ViewListener.getInstance();
-				try {
-					a.view(Gui, username, permesso);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
+				ViewListener view= ViewListener.getInstance();
+				view.view(Gui, username, permesso);	
 			}
 		});
 		
@@ -77,14 +76,8 @@ public class Ricerca extends JFrame {
 		btnAdmin = new JButton("Amministrazione");
 		btnAdmin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {			
-				ViewListener b= ViewListener.getInstance();
-				try {
-					b.viewAdmin(Gui, username, permesso);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-	
+				ViewListener view= ViewListener.getInstance();
+				view.viewAdmin(Gui, username, permesso);
 			}
 		});
 		

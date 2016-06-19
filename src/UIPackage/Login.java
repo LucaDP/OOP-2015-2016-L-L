@@ -1,4 +1,4 @@
-package UIPackage;
+package Gui;
 
 
 
@@ -20,7 +20,11 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 
 
-
+/**
+ * 
+ * @author Luca
+ *
+ */
 public class Login extends JFrame {
 
 	private JPanel contentPane;
@@ -30,7 +34,9 @@ public class Login extends JFrame {
 	public JPasswordField passwordField;
 	public JPasswordField passwordField_1;
 	
-
+	/**
+	 * Costruttore classe Login
+	 */
 	public Login() {
 		Login Gui = this;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -38,71 +44,40 @@ public class Login extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		
 		textField = new JTextField();
 		textField.setColumns(10);
-		
 		JButton btnNewButton = new JButton("Login");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){
 				
-				ViewListener a= ViewListener.getInstance();
-				try {
-					a.login( Gui);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			
-				
+				ViewListener view= ViewListener.getInstance();
+				view.login(Gui);	
 			}
 		});
-		
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
-		
 		JButton btnNewButton_1 = new JButton("Signin");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ViewListener a= ViewListener.getInstance();
-				try {
-					a.signin(Gui);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-				
-				
-				
+				ViewListener view= ViewListener.getInstance();
+				view.signin(Gui);	
 			}
 		});
-		
 		JLabel lblUsername = new JLabel("Username");
-		
 		JLabel lblPassword = new JLabel("Password");
-		
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
-		
 		JButton btnNewButton_2 = new JButton("Accesso Libero");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ViewListener a= ViewListener.getInstance();
-				a.freeAccess(Gui);
-				
-				
+				ViewListener view= ViewListener.getInstance();
+				view.freeAccess(Gui);	
 			}
 		});
-		
 		JLabel lblUsername_1 = new JLabel("Username");
-		
 		JLabel lblPassword_1 = new JLabel("Password");
-		
 		JLabel lblEmail = new JLabel("E-Mail");
-		
 		passwordField = new JPasswordField();
-		
 		passwordField_1 = new JPasswordField();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
