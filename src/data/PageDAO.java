@@ -2,6 +2,7 @@ package data;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -14,12 +15,21 @@ import javax.imageio.ImageIO;
 
 
 
-
+/**
+ * Classe che permette di fare le operazioni nel database relative alle pagine
+ * @author Luca
+ *
+ */
 
 public class PageDAO implements PagesDAO {
 
-	
-	public OperaGen selectPages(String opera) throws Exception{
+	/**
+	 * Metodo che premette di prendere le pagine relative a un opera dal database. Se sono presenti questo 
+	 * ritorna un OperaComp altrimenti un OperaGen
+	 * @param opera titolo di cui prendere le pagine
+	 * @return OperaGen oppure OperaComp
+	 */
+	public OperaGen selectPages(String opera){
 		
 		Connection conn= dbConnect.connect();
 		PreparedStatement pstmt;
@@ -42,11 +52,16 @@ public class PageDAO implements PagesDAO {
 			        	Blob blob = rs.getBlob("img");
 		                int blobLength = (int) blob.length();
 		                byte[] blobAsBytes = blob.getBytes(1, blobLength);
-		                BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(blobAsBytes));
-			        	Immagine img =new Immagine(bufferedImage, rs.getString("acquisitore"), rs.getString("revisoreimg"), rs.getBoolean("imgpubb"));
-			        	Page k= new Page(count, img, tras);
-			        	pagine.add(k);
-			        	
+		                BufferedImage bufferedImage;
+						try {
+							bufferedImage = ImageIO.read(new ByteArrayInputStream(blobAsBytes));
+							Immagine img =new Immagine(bufferedImage, rs.getString("acquisitore"), rs.getString("revisoreimg"), rs.getBoolean("imgpubb"));
+							Page k= new Page(count, img, tras);
+				        	pagine.add(k);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}			  			        	
 			        }
 			        ((OperaComp)a).setPagTot(count);
 			        ((OperaComp)a).setPagine(pagine);

@@ -1,6 +1,15 @@
 package data;
-
+/**
+ * interfaccia che deinisce le firme dei metodi per le operazioni sulle pagine
+ * @author Luca
+ *
+ */
 public interface PagesDAO {
-	public OperaGen selectPages(String nomeopera) throws Exception;
+	/**
+	 * firma del metodo  per la selezione delle pagine di un opera
+	 * @param nomeopera  nome dell'opera
+	 * @return OperaGen
+	 */
+	public OperaGen selectPages(String nomeopera);
 	
 }
