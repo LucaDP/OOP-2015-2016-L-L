@@ -13,15 +13,13 @@ private String trascrittore;
 private String revisore;
 
 private Boolean pubblicato;
-public Trascrizione(){
-	
-}
+
 /**
  * Metodo che rappresenta la trascrizione con i suoi parametri
  * @param testo         Stringa che rappresenta l'oggetto testo
  * @param trascrittore  Stringa che rappresenta l'oggetto trascrittore
  * @param revisore      Stringa che rappresenta l'oggetto revisore
- * @param pubblicato    booleano che rappresenta se la trascrizione è pubblicata o meno 
+ * @param pubblicato    booleano che rappresenta se la trascrizione Ã¨ pubblicata o meno 
  */
 public Trascrizione(String testo, String trascrittore, String revisore, Boolean pubblicato) {
 	this.testo = testo;
