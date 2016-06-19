@@ -14,9 +14,9 @@ Opera non ancora acquisita: Diaria rerum suis temporibus Aquilae et alibi gestar
 
 Utenti:
 Ruolo					Username			Password
-Amministratore			admin				admin
-Acquisitore				acquisitore         acquisitore
+Amministratore			        admin				admin
+Acquisitore				acquisitore                     acquisitore
 RevisoreIMG				revisoreimg			revisoreimg			
-Trascrittore			trascrittore        trascrittore
-RevisoreTEI				revisoretei         revisoretei
-UtenteAvanzato			utente              utente
+Trascrittore		         	trascrittore                    trascrittore
+RevisoreTEI				revisoretei                     revisoretei
+UtenteAvanzato			        utente                          utente
