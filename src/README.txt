@@ -1,8 +1,9 @@
 Note per testare l'applicazione:
 
-Utilizzare per il database il file diglitallibrary.sql 
+
 Modificare la stringa di connessione al database nel file dbConnect.java (Package Data) (inserire il nome del proprio db, username e password)
 Utilizzare mysql-connector-java-5.1.38-bin.jar
+Utilizzare per il database il file diglitallibrary.sql situato in questa cartella 
 In esso sono caricate alcune opere e sono già registrati alcuni utenti.
 
 Opere:
