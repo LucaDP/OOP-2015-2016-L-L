@@ -35,7 +35,7 @@ public class AdminActionManager extends UserActionManager {
 			}
 		}
 		else{
-			JOptionPane.showMessageDialog (null, "Username gi‡ esistente, rieseguire la procedura", "Title", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog (null, "Username gi√† esistente, rieseguire la procedura", "Title", JOptionPane.ERROR_MESSAGE);
 			
 		}
 		return false;
@@ -47,9 +47,9 @@ public class AdminActionManager extends UserActionManager {
 	 * @param password  Stringa che rappresenta la password da dover inserire nel database
 	 * @param email     Stringa che rappresenta l'email da dover inserire nel database
 	 * @param ruolo     Stringa che rappresenta il ruolo da dover inserire nel database , da dare ad un utente
-	 * @return ritorna un booleano che ci permette di capire se un utente Ë stato creato o meno
+	 * @return ritorna un booleano che ci permette di capire se un utente √® stato creato o meno
 	 */
-	protected Boolean CreaUtente(String username, String password, String email, String ruolo){
+	protected boolean CreaUtente(String username, String password, String email, String ruolo){
 		UtenzaDAO b= new UtenteDAO();
 		Boolean reg = b.check(username);
 		if(!reg){
@@ -63,7 +63,7 @@ public class AdminActionManager extends UserActionManager {
 			}
 		}
 		else{
-			JOptionPane.showMessageDialog (null, "Username gi‡ esistente, rieseguire la procedura", "Title", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog (null, "Username gi√† esistente, rieseguire la procedura", "Title", JOptionPane.ERROR_MESSAGE);
 			
 		}
 		return false;
@@ -73,9 +73,9 @@ public class AdminActionManager extends UserActionManager {
 	 * Metodo che permette di promuovere un utente all'interno del sistema
 	 * @param username Stringa che rappresenta l'username dell'utente da dover promovuere
 	 * @param permesso Stringa che rappresenta il permesso da dover dare ad un utente 
-	 * @return boolean che ci fa capire se l'utente Ë stato promosso o meno attraverso un alert
+	 * @return boolean che ci fa capire se l'utente √® stato promosso o meno attraverso un alert
 	 */
-	protected Boolean PromozioneUtente(String username, String permesso){
+	protected boolean PromozioneUtente(String username, String permesso){
 		UtenzaDAO b = new UtenteDAO();
 		Boolean check = b.check(username);
 		if(!check){
