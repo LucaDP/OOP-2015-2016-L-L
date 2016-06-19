@@ -5,7 +5,11 @@ import java.sql.SQLException;
 import java.sql.Connection;
 
 
-
+/**
+ * Classe per la connessione al database
+ * @author Luca
+ *
+ */
 public class dbConnect {
 	
 	private static String url = "jdbc:mysql://127.0.0.1:3306/digitallibrary1?useSSL=false";
@@ -14,14 +18,13 @@ public class dbConnect {
 	
 	
 	private static Connection db;
-	
-	public static Connection connect(){
-		 try {
-			   
+	/**
+	 * Metodo per la connessione al database
+	 * @return Connection
+	 */
+	protected static Connection connect(){
+		 try {   
 			 db = DriverManager.getConnection(url,user,psw);
-			  
-			 
-			 
 			} catch (SQLException ex) {
 			    // handle any errors
 			    System.out.println("SQLException: " + ex.getMessage());
