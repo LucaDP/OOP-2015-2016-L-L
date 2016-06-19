@@ -8,11 +8,20 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
-
+/**
+ * Classe che permette di effettuare le operazioni sul database relative alle informazioni di un opera
+ * @author Luca
+ *
+ */
 
 public class OperaGenDAO implements TitoliDAO{
-	
-	public ArrayList<OperaGen> selectOpera(String opera, Boolean pubblicata) throws Exception{
+	/**
+	 * Metodo che ritorna una lista di opere che corrispondono a una determianta ricerca
+	 * @param opera opera ricercata
+	 * @param pubblicata per determinare se prendere opere pubblicate o meno
+	 * @return ArrayList<OperaGen>
+	 */
+	public ArrayList<OperaGen> selectOpera(String opera, boolean pubblicata){
 		ArrayList<OperaGen> listaopere=new ArrayList<OperaGen>();
 		Connection conn =  dbConnect.connect();;
 		PreparedStatement pstmt;
@@ -48,16 +57,24 @@ public class OperaGenDAO implements TitoliDAO{
 		return listaopere;
 	}
 
-	@Override
-	public Boolean creaNuovaOpera(String opera, String autore, String epoca) {
+	/**
+	 * Metodo per la creazione del database di una entry nella tabella opera riguardante la nuova opera
+	 * @param opera nome dell'opera da creare
+	 * @param autore autore dell'opera
+	 * @param epoca epoca dell'opera
+	 * @return boolean  true in caso di successo, false altrimenti
+	 * 
+	 */
+	public boolean creaNuovaOpera(String opera, String autore, String epoca) {
 		
 		Connection conn = dbConnect.connect();
-		java.sql.PreparedStatement pstmt;
+		PreparedStatement pstmt;
 	
 		try {
 				pstmt = conn.prepareStatement("SELECT * FROM opera WHERE titolo= ?");
 		    	pstmt.setString(1, opera);
 		    	if(!(pstmt.execute())){
+		    		pstmt.close();
 		    		conn.close();
 		    		return false;
 		    	}
@@ -68,6 +85,7 @@ public class OperaGenDAO implements TitoliDAO{
 		    		pstmt.setString(3, epoca);
 		    		pstmt.setBoolean(4, false);
 		    		pstmt.execute();
+		    		pstmt.close();
 		    		conn.close();
 		    		return true;
 		    	}
@@ -80,9 +98,14 @@ public class OperaGenDAO implements TitoliDAO{
 			}
 		return false;
 	}
-
-	@Override
-	public Boolean pubblicaOpera(String opera) {
+	
+	
+	/**
+	 * Metodo che setta a true il campo pubblicato della entry nella tabella opera relativo all'opera selezionata
+	 * @param opera nome dell'opera da pubblicare
+	 * @return boolan true in caso di successo, false altrimenti
+	 */
+	public boolean pubblicaOpera(String opera) {
 		
 		Connection conn = dbConnect.connect();
 		PreparedStatement pstmt;
