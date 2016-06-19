@@ -5,9 +5,22 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+/**
+ * Classe per le azioni sul database riguardo le immagini dell'opera
+ * @author Luca
+ *
+ */
 public class ImmagineDAO implements ScanDAO {
-	public Boolean pubbImg(int numeropagina, String nomeopera, String username ){
+	
+	
+	/**
+	 * Metodo per settare su true l'attributo imgpubb della tabella pagina relativo all'immagine che si vuole pubblicare 
+	 * @param numeropagina numero della pagina
+	 * @param nomeopera nome dell'opera
+	 * @param username username del revisore
+	 * @return boolean true in caso di successo altrimenti false
+	 */
+	public boolean pubbImg(int numeropagina, String nomeopera, String username ){
 		Connection conn = dbConnect.connect();
 		PreparedStatement pstmt;
 		
@@ -36,14 +49,33 @@ public class ImmagineDAO implements ScanDAO {
 	}
 	
 	
-	
-	public Boolean uploadImmagine(String nomeopera, InputStream inputStream, int numpag, String username ) {
+	/**
+	 * Metodo per caricare un Immagine nel database. Questi crea una entry nella tabella pagina relativa alla nuova immagine solo 
+	 * se la entry non esiste. Nel caso la entry esista, questo metodo esegue solo l'update. Oltre a caricare l'immagine questo metodo 
+	 * crea una entry (sempre se non è stata già creata) nella tabella tei, relativa al tei collegato all'immagine, inserendo anche un testo di default
+	 * @param nomeopera nome dell'opera a cui appartiene l'immagine
+	 * @param inputStream immagine
+	 * @param numpag numero di pagina dell'immagine
+	 * @param username username dell'acquisiotore
+	 * @return boolean true se é stata eseguita la insert o l'update, altrimenti false
+	 */
+	public boolean uploadImmagine(String nomeopera, InputStream inputStream, int numpag, String username ) {
 		Connection conn= dbConnect.connect();
 		PreparedStatement pstmt;
 		PreparedStatement pstmt1;
 		PreparedStatement pstmt2;
 		ResultSet rs;
 		int id=0;
+		final String teiinizio= "<TEI xmlns=\"http://www.tei-c.org/ns/1.0\">\r<teiHeader>\r</teiHeader>\r<text>\r\r";
+		final String teititolocapitolo= "<body>\r<p><!--INSERIRE TITOLO-->\r\rTITOLO\r\r<!--FINE TITOLO--></p>\r<p><!--INSERIRE CAPITOLO-->\r\rCAPITOLO\r\r<!--FINE CAPITOLO--></p>\r\r";
+		final String aperturaparagrafo="<p><!--PRIMO PARAGRAFO-->\r\r";
+		final String paragrafo="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vitae egestas tortor.\r\r";
+		final String chiusuraparagrafo="<!--FINE PRIMO PARAGRAFO--></p>\r\r";
+		final String inizionote="<p>Note:<hi><!--NOTE-->\r\r";
+		final String note="Vestibulum vel est sit amet nisl facilisis elementum. Donec scelerisque quis purus id egestas.\r\r";
+		final String finenote="<!--FINE NOTE--></hi></p>\r\r";
+		final String finetei="</body>\r</text>\r</TEI>";
+		final String TEIdefault=teiinizio.concat(teititolocapitolo).concat(aperturaparagrafo).concat(paragrafo).concat(chiusuraparagrafo).concat(inizionote).concat(note).concat(finenote).concat(finetei);
 		
 		
 		try{
@@ -71,16 +103,7 @@ public class ImmagineDAO implements ScanDAO {
 					 id=rs.getInt("id");
 				 }
 				 pstmt2 = (PreparedStatement)conn.prepareStatement("INSERT INTO tei (idpagina, testo) VALUES (?,?)");
-				 String teiinizio= "<TEI xmlns=\"http://www.tei-c.org/ns/1.0\">\r<teiHeader>\r</teiHeader>\r<text>\r\r";
-				 String teititolocapitolo= "<body>\r<p><!--INSERIRE TITOLO-->\r\rTITOLO\r\r<!--FINE TITOLO--></p>\r<p><!--INSERIRE CAPITOLO-->\r\rCAPITOLO\r\r<!--FINE CAPITOLO--></p>\r\r";
-				 String aperturaparagrafo="<p><!--PRIMO PARAGRAFO-->\r\r";
-				 String paragrafo="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vitae egestas tortor.\r\r";
-				 String chiusuraparagrafo="<!--FINE PRIMO PARAGRAFO--></p>\r\r";
-				 String inizionote="<p>Note:<hi><!--NOTE-->\r\r";
-				 String note="Vestibulum vel est sit amet nisl facilisis elementum. Donec scelerisque quis purus id egestas.\r\r";
-				 String finenote="<!--FINE NOTE--></hi></p>\r\r";
-				 String finetei="</body>\r</text>\r</TEI>";
-				 String TEIdefault=teiinizio.concat(teititolocapitolo).concat(aperturaparagrafo).concat(paragrafo).concat(chiusuraparagrafo).concat(inizionote).concat(note).concat(finenote).concat(finetei);
+				 
 				 pstmt2.setInt(1, id);
 				 pstmt2.setString(2, TEIdefault);
 				 if(pstmt2.execute()){
