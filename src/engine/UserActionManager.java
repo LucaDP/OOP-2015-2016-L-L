@@ -27,7 +27,7 @@ public class UserActionManager {
 	 * @param password Stringa che rappresenta la password dell'utente da dover loggare
 	 * @return Finestra di ricerca 
 	 */
-	protected Boolean LogIn(String username, String password){
+	protected boolean LogIn(String username, String password){
 		Utente user= new Utente(null, null, null, null);
 		UtenzaDAO b= new UtenteDAO();
 		user= b.access(username);
@@ -72,7 +72,7 @@ public class UserActionManager {
 	 * @param username Stringa che rappresenta l'username dell'utente da dover creare
 	 * @param password Stringa che rappresenta la password dell'utente da dover creare
 	 * @param email    Stringa che rappresenta l'email dell'utente da dover creare
-	 * @return alert che ci permettono di capire come Ë andata la creazione di un utente
+	 * @return alert che ci permettono di capire come √® andata la creazione di un utente
 	 */
 	protected boolean CreaUtente(String username, String password, String email){
 		UtenzaDAO b= new UtenteDAO();
@@ -88,7 +88,7 @@ public class UserActionManager {
 			}
 		}
 		else{
-			JOptionPane.showMessageDialog (null, "Username gi‡ esistente, rieseguire la procedura", "Title", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog (null, "Username gi√† esistente, rieseguire la procedura", "Title", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		
@@ -105,7 +105,7 @@ public class UserActionManager {
 			return listaopere;	
 		}
 	/**
-	 * Metodo che permette ad un utente non registrato di accedere al sistema con limitate funzionalit‡
+	 * Metodo che permette ad un utente non registrato di accedere al sistema con limitate funzionalit√†
 	 */
 	public void AccessoUtenteBase(){
 		Ricerca Frame= new Ricerca(null, null);
