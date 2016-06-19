@@ -98,7 +98,7 @@ public class AdminActionManager extends UserActionManager {
 	 * @param autore    Stringa che rappresenta l'autore dell'opera da dover inserire nel database
 	 * @param epoca     Stringa che rappresenta l'epoca dell'opera da dover inserire nel database
 	 */
-	public void creaNuovaOpera(String nomeopera, String autore, String epoca){
+	protected void creaNuovaOpera(String nomeopera, String autore, String epoca){
 		TitoliDAO b= new OperaGenDAO();
 	     if(b.creaNuovaOpera(nomeopera,autore,epoca)){
 	    	 JOptionPane.showMessageDialog (null, "Opera inserita nel database");
@@ -110,7 +110,7 @@ public class AdminActionManager extends UserActionManager {
 	 * Metodo che permette di pubblicare un opera all'interno del database
 	 * @param nomeopera  Stringa che rappresenta il nome dell'opera da dover pubblicare
 	 */
-	public void pubblicaOpera(String nomeopera){
+	protected void pubblicaOpera(String nomeopera){
 		TitoliDAO b= new OperaGenDAO();
 	     if(!(b.pubblicaOpera(nomeopera))){
 	    	 JOptionPane.showMessageDialog (null, "Opera pubblicata");
