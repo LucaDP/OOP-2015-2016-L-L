@@ -1,4 +1,4 @@
-package UIPackage;
+package GUI;
 
 
 
@@ -18,7 +18,11 @@ import javax.swing.JButton;
 import javax.swing.JPasswordField;
 
 import javax.swing.JList;
-
+/**
+ * 
+ * @author  loris
+ *
+ */
 public class BackOffice extends JFrame {
 
 	public JPanel contentPane;
@@ -39,10 +43,12 @@ public class BackOffice extends JFrame {
 	public JComboBox elencooperedapubb;
 	private JButton btnApplica;
 	public JTextField Email;
-	
+	/**
+	 * Costruttore per la finestra di backoffice
+	 */
 	public BackOffice() {
 	    BackOffice Gui = this;
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 723, 455);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -70,18 +76,14 @@ public class BackOffice extends JFrame {
 		 btnApplica.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					
-					ViewListener a= ViewListener.getInstance();
-					try {
-						a.promozioneutenza(Gui);
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}	
+					ViewListener view= ViewListener.getInstance();
+					
+				    view.promozioneutenza(Gui);
+				
 				}
 			});
 		
 		 JLabel lblCreaOperatore = new JLabel("Crea Operatore:");
-		
 		operatorname = new JTextField();
 		operatorname.setColumns(10);
 		
@@ -99,7 +101,7 @@ public class BackOffice extends JFrame {
 		
 		JLabel lblOperatorname = new JLabel("Username Operatore"); 
 		
-		 NomeOpera = new JLabel("Nome opera");
+		NomeOpera = new JLabel("Nome opera");
 		
 		nomeopera = new JTextField();
 		nomeopera.setColumns(30);
@@ -121,13 +123,9 @@ public class BackOffice extends JFrame {
 		btnCrea.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				ViewListener a= ViewListener.getInstance();
-				try {
-					a.creazioneopera(Gui);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}	
+				ViewListener view= ViewListener.getInstance();
+				view.creazioneopera(Gui);
+				
 			}
 		});
 		
@@ -137,13 +135,9 @@ public class BackOffice extends JFrame {
 		btnCrea_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				ViewListener a= ViewListener.getInstance();
-				try {
-					a.creazioneoperatore(Gui);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}	
+				ViewListener view= ViewListener.getInstance();
+				view.creazioneoperatore(Gui);
+				
 			}
 		});
 		
@@ -157,13 +151,9 @@ public class BackOffice extends JFrame {
 		JButton btnCerca = new JButton("Cerca");
 		btnCerca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ViewListener a= ViewListener.getInstance();
-				try {
-					a.searchBO(Gui);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}	
+				ViewListener view= ViewListener.getInstance();
+				view.searchBO(Gui);
+				
 			}
 		});
 		elencooperedapubb = new JComboBox();
@@ -172,13 +162,9 @@ public class BackOffice extends JFrame {
 		btnPubblica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				ViewListener a= ViewListener.getInstance();
-				try {
-					a.pubblicareopera(Gui);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}	
+				ViewListener view= ViewListener.getInstance();
+				view.pubblicareopera(Gui);
+				
 			}
 		});
 		JList list = new JList();
