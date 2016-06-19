@@ -12,9 +12,9 @@ import java.sql.Connection;
  */
 public class dbConnect {
 	
-	private static String url = "jdbc:mysql://127.0.0.1:3306/digitallibrary1?useSSL=false";
-	private static String user = "root";
-	private static String psw = "";
+	private static final  String url = "jdbc:mysql://127.0.0.1:3306/digitallibrary1?useSSL=false";
+	private static final  String user = "root";
+	private static final  String psw = "";
 	
 	
 	private static Connection db;
